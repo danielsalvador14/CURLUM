@@ -1,0 +1,15 @@
+.p-font {
+  font-family: Arial;
+}
+
+.h1-font {
+  font-family: Arial Rounded MT Bold, Gill Sans MT, Arial Black;
+}
+
+.link-color:link {
+  color: Black;
+}
+
+.link-color:visited {
+  color: Black;
+}

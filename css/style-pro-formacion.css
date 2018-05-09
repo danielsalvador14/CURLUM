@@ -1,0 +1,22 @@
+.t-thead tr th {
+  border: 5px solid;
+  padding: 5px;
+}
+
+.t-tbody tr td {
+  border: 1px solid;
+  padding: 2px;
+}
+
+.div-table {
+  padding: 5px;
+}
+
+.tr-boton {
+  margin: 0;
+  padding-top: 2px;
+}
+
+.lista-grado {
+  text-align: left;
+}

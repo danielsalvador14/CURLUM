@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style-fuentes.css">
 		<link rel="stylesheet" href="css/style-blog.css">
+		<link rel="stylesheet" href="css/font-family.css">
 		<link rel="icon" href="imagenes/CURLUM.ico">
 	</head>
 
@@ -51,18 +52,18 @@
 
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
-		          <a class="p-2 text-white" href="pro_datos_personales.php">Datos Personales</a>
-		          <a class="p-2 text-white" href="#">Formación Académica</a>
-		          <a class="p-2 text-white" href="#">Producción Académica</a>
-		          <a class="p-2 text-white" href="#">Carga Acádemica</a>
-		          <a class="p-2 text-white" href="#">Tutorías</a>
-		          <a class="p-2 text-white" href="#">Configuración</a>
+		          <a class="p-2 text-white p-font" href="pro_datos_personales.php">Datos Personales</a>
+		          <a class="p-2 text-white p-font" href="pro_formacion.php">Formación Académica</a>
+		          <a class="p-2 text-white p-font" href="#">Producción Académica</a>
+		          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+		          <a class="p-2 text-white p-font" href="#">Tutorías</a>
+		          <a class="p-2 text-white p-font" href="#">Configuración</a>
 		        </nav>
 		      </div>
 
 		      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
 		        <div class="col-md-6 px-0">
-		          <h1 class="display-4 font-italic">CURLUM</h1>
+		          <h1 class="display-4 font-italic h1-font">CURLUM</h1>
 		          <p class="lead my-3">A través de una interfaz amigable con el usuario CURLUM permite gestionar la información de los profesores y generar, a partir de esta, un curriculum vitae personalizado, además provee la función de exportar su currículum en distintos formatos.</p>
 		        </div>
 		      </div>
@@ -71,7 +72,7 @@
 		        <div class="col-md-6">
 		          <div class="card flex-md-row mb-4 box-shadow h-md-250">
 		            <div class="card-body d-flex flex-column align-items-start">
-		              <h3 class="mb-0">
+		              <h3 class="mb-0 h1-font">
 		                <a class="text-dark">Características de CURLUM</a>
 		              </h3><p class="card-text mb-auto">Con CURLUM usted podrá Registrar: </p>
 		              <p> <ul>

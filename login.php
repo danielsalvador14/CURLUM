@@ -6,6 +6,7 @@
   	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
   	<link rel="stylesheet" href="css/bootstrap.min.css">
   	<link rel="stylesheet" href="css/style-login.css">
+    <link rel="stylesheet" href="css/font-family.css">
   	<link rel="icon" href="imagenes/CURLUM.ico">
   </head>
 	
@@ -66,7 +67,7 @@
     ?>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <form class="form-signin" method="post" >
-        <h1>CURLUM</h1>
+        <h1 class="h1-font">CURLUM</h1>
         <label for="inputUsuario" class="sr-only">Nombre de Usuario</label>
         <input type="text" id="inputUsuario" class="form-control" name="username" placeholder="Nombre de Usuario" required autofocus>
         <label for="inputPassword" class="sr-only">Contraseña</label>
