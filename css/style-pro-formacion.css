@@ -8,10 +8,6 @@
   padding: 2px;
 }
 
-.div-table {
-  padding: 5px;
-}
-
 .tr-boton {
   margin: 0;
   padding-top: 2px;
@@ -19,4 +15,18 @@
 
 .lista-grado {
   text-align: left;
+}
+
+.div-boton-crear {
+  width: 10%;
+}
+
+.div-grados {
+  position: relative;
+  left: 0px;
+}
+
+#grados-registros {
+  position: relative;
+  left: 0px;
 }

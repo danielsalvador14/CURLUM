@@ -133,20 +133,14 @@
 					</div>
 				</div>
 
-	      <div class="div-table">
-          <center>
+	      <div>
+					<div class="div-boton-crear">
+						<a href=""><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Registrar</button></a>
+						<br><br><br>
+					</div>
+          <div id="grados-registros" class="div-grados">
 						<?php grados(getProfesor($_SESSION['username'])); ?>
-            <div><br></div>
-            <table>
-              <thead>
-                <tr>
-									<th><a href=""><button class="btn btn-lg btn-secondary btn-block" name="modificar" type="submit">Modificar</button></a></th>
-									<th><a href=""><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Crear</button></a></th>
-									<th><a href=""><button class="btn btn-lg btn-secondary btn-block" name="eliminar" onclick="eliminar()">Eliminar</button></a></th>
-                </tr>
-              </thead>
-            </table>
-          </center>
+          </div>
         </div>
 
 		    <footer class="blog-footer text-white pos-food">
