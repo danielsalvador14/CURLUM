@@ -13,9 +13,9 @@
 
 		<script type="text/javascript">
 
-			function editarGrado(_variable){
+			function editarGrado(_cedula){
 				console.log("Modificar Grado!");
-				setTimeout("location.href='pro_formacion_edit.php?cedula_profesional="+_variable+"'", 0);
+				setTimeout("location.href='pro_formacion_edit.php?cedula_profesional="+_cedula+"'", 0);
 			}
 
 		</script>
@@ -126,7 +126,7 @@
 
 	      <div>
 					<div class="div-boton-crear">
-						<a href=""><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit" onclick="eliminarGrado(1)">Registrar</button></a>
+						<a href="pro_formacion_register.php"><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Registrar</button></a>
 						<br><br><br>
 					</div>
           <div id="grados-registros" class="div-grados">

@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>CURLUM - Formación Académica - Editar</title>
+		<title>CURLUM - Formación Académica - Registrar</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style-fuentes.css">
@@ -12,19 +12,26 @@
 		<link rel="icon" href="imagenes/CURLUM.ico">
 
 		<script type="text/javascript">
-			function solicitarModificacion(_cedula){
+			function solicitarModificacion(_id){
 				if ($("#nombre").val() == ""){
 					alert("Ingrese Nombre!");
-				} else if ($("#institucion").val().lenght == 0){
+				} else if ($("#institucion").val() == ""){
 					alert("Ingrese Institucion!");
+				} else if ($("#cedula_profesional").val() == ""){
+					alert("Ingrese Cédula Profesional!");
+				} else if ($("#fecha_inicio").val() == "" ||
+										$("#fecha_fin").val() == "" ||
+										$("#fecha_obtencion").val() == ""){
+					alert("Ingrese Fecha!");
 				} else {
 					nombre = document.getElementById("nombre").value;
 					nivel = document.getElementById("nivel").value;
 					institucion = document.getElementById("institucion").value;
+					cedula_profesional = document.getElementById("cedula_profesional").value;
 					fech_i = document.getElementById("fecha_inicio").value;
 					fech_f = document.getElementById("fecha_fin").value;
 					fech_o = document.getElementById("fecha_obtencion").value;
-					setTimeout("location.href='pro_formacion_modify.php?cedula_profesional="+_cedula+"&nombre="+nombre+"&nivel="+nivel+"&institucion="+institucion+"&fecha_inicio="+fech_i+"&fecha_fin="+fech_f+"&fecha_obtencion="+fech_o+"'", 0);
+					setTimeout("location.href='pro_formacion_create.php?id="+_id+"&cedula_profesional="+cedula_profesional+"&nombre="+nombre+"&nivel="+nivel+"&institucion="+institucion+"&fecha_inicio="+fech_i+"&fecha_fin="+fech_f+"&fecha_obtencion="+fech_o+"'", 0);
 				}
 			}
 		</script>
@@ -32,12 +39,6 @@
 
 	<?php
 	session_start();
-	$cedula = $_GET['cedula_profesional'];
-	$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-	$sql = 'SELECT * FROM grado WHERE cedula_profesional = "'.$_GET['cedula_profesional'].'"';
-	$resultado = mysqli_query($conexion, $sql);
-	$grado = mysqli_fetch_array($resultado);
-
 
   function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
@@ -47,25 +48,15 @@
     echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
   }
 
-  function getNivel($idnivel){
+	function getIdPersona($username){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = 'SELECT * FROM nivel WHERE id = "'.$idnivel.'"';
-		$resultado = mysqli_query($conexion, $sql);
-		return mysqli_fetch_array($resultado);
+		$sql = 'SELECT * FROM profesor WHERE username = "'.$username.'"';
+    $resultado = mysqli_query($conexion, $sql);
+    $persona = mysqli_fetch_array($resultado);
+		return $persona['id'];
 	}
 
-	if(isset($_POST['eliminar_grado'])){
-		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = 'DELETE FROM grado WHERE cedula_profesional = "'.$_GET['cedula_profesional'].'"';
-		mysqli_query($conexion, $sql);
-		echo '
-		<script>
-		alert("ALERTA");
-		</script>
-		';
-		header('Location: pro_formacion.php');
-	}
-	elseif(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
 	?>
 
 		<body>
@@ -109,20 +100,20 @@
 	          <ul class="list-group mb-3">
 	            <li class="list-group-item d-flex justify-content-between lh-condensed">
 	              <div>
-	                <h6 class="my-0">¿Que pasará cuando se presione sobre "Eliminar"?</h6>
-	                <small class="text-muted">El registro será inmediantamente eliminado de la base de datos. Por lo cual, se recomienda precaución al solicitar esta acción. Para permitir eliminar el registro, primero confirme señalando la casilla de eliminación.</small>
+	                <h6 class="my-0">¿Que pasará cuando se presione sobre "Guardar"?</h6>
+	                <small class="text-muted">Tal como dice, guardará inmediatamente los datos en un nuevo registro, por lo cual, recomendamos la verificación del contenido ingresado.</small>
 	              </div>
 	            </li>
 	          </ul>
 	        </div>
 
 	        <div class="col-md-8 order-md-1">
-	          <h4 class="mb-3">Datos del Grado Académico</h4>
+	          <h4 class="mb-3">Nuevo Grado Académico</h4>
 	          <form method="post" class="needs-validation">
 	            <div class="row">
 	              <div class="col-md-6 mb-3">
 	                <label for="username">Nombre de Carrea</label>
-									<?php echo '<input type="text" class="form-control" id="nombre" value="'.$grado['nombre'].'" required>' ?>
+									<?php echo '<input type="text" class="form-control" id="nombre" required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
@@ -131,16 +122,24 @@
 								<div class="col-md-6 mb-3">
 	                <label for="Cnivel">Nivel de Carredo</label>
 	                <select class="custom-select d-block w-100" name="nivel" id="nivel" onChange="mostrar(this.value);" required>
-	                  <option value="1" <?php if ($grado['id_nivel'] == 1) echo "selected";?> >Licenciatura</option>
-	                  <option value="2" <?php if ($grado['id_nivel'] == 2) echo "selected";?> >Especialidad</option>
-										<option value="3" <?php if ($grado['id_nivel'] == 3) echo "selected";?> >Maestria</option>
-										<option value="4" <?php if ($grado['id_nivel'] == 4) echo "selected";?> >Doctorado</option>
+	                  <option value="1" selected>Licenciatura</option>
+	                  <option value="2">Especialidad</option>
+										<option value="3">Maestria</option>
+										<option value="4">Doctorado</option>
 	                </select>
 	              </div>
 
 								<div class="col-md-6 mb-3">
 	                <label for="username">Nombre de Institucion</label>
-									<?php echo '<input type="text" class="form-control" id="institucion" value="'.$grado['institucion'].'" required>' ?>
+									<?php echo '<input type="text" class="form-control" id="institucion" required>' ?>
+	                <div class="invalid-feedback">
+	                  Campo requerido.
+	                </div>
+	              </div>
+
+								<div class="col-md-6 mb-3">
+	                <label for="username">Cédula Profesional</label>
+									<?php echo '<input type="text" class="form-control" id="cedula_profesional" required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
@@ -149,21 +148,20 @@
 	              <div id="fecha-inicio" class="fechas">
 									<div class="fecha">
 										<label for="Cnivel">Fecha de Inicio</label><br>
-										<input id="fecha_inicio" type="date" name="fecha-inicio" value= <?php echo '"'.$grado['fecha_inicio'].'"'; ?>>
+										<input id="fecha_inicio" type="date" name="fecha-inicio">
 									</div>
 									<div id="fecha-fin" class="fecha">
 										<label for="Cnivel">Fecha de Fin</label><br>
-										<input id="fecha_fin" type="date" name="fecha-fin" value= <?php echo '"'.$grado['fecha_fin'].'"'; ?>>
+										<input id="fecha_fin" type="date" name="fecha-fin">
 									</div>
 									<div id="fecha-obtencion" class="fecha">
 										<label for="Cnivel">Fecha de Obtención</label><br>
-										<input id="fecha_obtencion" type="date" name="fecha-obtencion" value= <?php echo '"'.$grado['fecha_obtencion'].'"'; ?>>
+										<input id="fecha_obtencion" type="date" name="fecha-obtencion">
 									</div>
 
 									<div id="botones">
 										<table>
-											<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$_GET['cedula_profesional'].'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
-											<th><button id="boton-eliminar" class="btn btn-lg btn-secondary btn-block" name="eliminar_grado" value=<?php echo '"'.$_GET['cedula_profesional'].'"'; ?>>Eliminar</button></th>
+											<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.getIdPersona($_SESSION['username']).'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
 										</table>
 									</div>
 	              </div>
