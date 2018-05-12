@@ -1,0 +1,45 @@
+#msj-error {
+  color: #FFF;
+  font-family: Arial Rounded MT Bold, Gill Sans MT, Arial Black;;
+}
+
+#contenedor-blanco {
+  position: relative;
+  right: 10px;
+}
+
+#contenedor-blanco {
+  color: #000;
+}
+
+.lista-grado {
+  text-align: left;
+}
+
+.fecha {
+  display: inline-block;
+}
+
+#fecha-inicio {
+  position: relative;
+  left: 2%;
+}
+
+#fecha-fin {
+  position: relative;
+  left: 7.5%;
+}
+
+#fecha-obtencion {
+  position: relative;
+  left: 15%;
+}
+
+#botones {
+  position: relative;
+  top: 50px;
+}
+
+#boton-eliminar:hover {
+  background-color: #B30000;
+}

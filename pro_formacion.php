@@ -10,34 +10,19 @@
     <link rel="stylesheet" href="css/style-pro-formacion.css">
 		<link rel="stylesheet" href="css/font-family.css"> <!-- Linea agregada -->
 		<link rel="icon" href="imagenes/CURLUM.ico">
+
+		<script type="text/javascript">
+
+			function editarGrado(_variable){
+				console.log("Modificar Grado!");
+				setTimeout("location.href='pro_formacion_edit.php?cedula_profesional="+_variable+"'", 0);
+			}
+
+		</script>
 	</head>
-	<script type="text/javascript">
-		function eliminar(){
-			console.log("MENSAJE");
-			alert("ALERTA")
-		}
-	</script>
 
 	<?php
 	session_start();
-	$grado_seleccionado = "";
-
-	function gradoVacio(){
-		return ($grado_seleccionado == "");
-	}
-
-	function setGrado($_grado){
-		$grado_seleccionado = $grado;
-	}
-
-	function eliminarGrado($cedula){
-		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = "DELETE grado WHERE cedula_profesional = '$cedula'";
-		$resultado = mysqli_query($conexion, $sql);
-		echo "__RESPUESTA__";
-		echo $resultado;
-
-	}
 
 	function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
@@ -69,16 +54,22 @@
 					<div class="card flex-md-row mb-4 box-shadow h-md-250">
 						<div class="card-body d-flex flex-column align-items-start">
 							<h3 class="mb-0 h1-font">
-								<a class="text-dark">'.getNivel($grados['id_nivel'])['nombre'].'</a>
-							</h3><p class="card-text mb-auto">'.$grados['cedula_profesional'].'</p>
+								<a class="text-dark">'.getNivel($grados['id_nivel'])['nombre'].' '.$grados['nombre'].'</a>
+							</h3>
+							<h4>
+								<a class="text-dark">'.$grados['institucion'].'</a>
+							</h4>
+							<p class="card-text mb-auto">'.$grados['cedula_profesional'].'</p>
 							<p>
 								<ul class="lista-grado">
 									<li>Fehca Inicio: '.$grados['fecha_inicio'].'</li>
 									<li>Fecha Fin: '.$grados['fecha_fin'].'</li>
 									<li>Fecha obtenido: '.$grados['fecha_obtencion'].'</li>
 								</ul>
+								<div>
+									<button class="btn btn-lg btn-secondary btn-block" name="eliminar" onclick="editarGrado('.$grados['cedula_profesional'].')">Editar</button>
+								</div>
 							</p>
-							<button class="btn btn-lg btn-secondary btn-block" name="eliminar" onclick="eliminar()">Eliminar</button>
 						</div>
 					</div>
 				</div>
@@ -135,7 +126,7 @@
 
 	      <div>
 					<div class="div-boton-crear">
-						<a href=""><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Registrar</button></a>
+						<a href=""><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit" onclick="eliminarGrado(1)">Registrar</button></a>
 						<br><br><br>
 					</div>
           <div id="grados-registros" class="div-grados">
@@ -149,7 +140,6 @@
 		        <a href="#" class="link-color">Volver al Inicio</a>
 		      </p>
 		    </footer>
-
 			<script src="js/jquery.js"></script>
     	<script src="js/bootstrap.min.js"></script>
 		</body>
