@@ -43,3 +43,7 @@
 #boton-eliminar:hover {
   background-color: #B30000;
 }
+
+.cambiar-cursor:hover {
+  cursor: pointer;
+}

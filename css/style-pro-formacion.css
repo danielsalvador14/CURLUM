@@ -30,3 +30,9 @@
   position: relative;
   left: 0px;
 }
+
+.boton-editar {
+  position: relative;
+  top: -11%;
+  left: 85%;
+}
