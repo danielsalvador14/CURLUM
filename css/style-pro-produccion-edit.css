@@ -1,0 +1,36 @@
+#msj-error {
+  color: #FFF;
+  font-family: Arial Rounded MT Bold, Gill Sans MT, Arial Black;;
+}
+
+#contenedor-blanco {
+  position: relative;
+  right: 10px;
+}
+
+#contenedor-blanco {
+  color: #000;
+}
+
+.fecha {
+  display: inline-block;
+}
+
+#fecha {
+  position: relative;
+  left: 2%;
+}
+
+#botones {
+  position: relative;
+  top: 30%;
+  left: 65%;
+}
+
+#boton-eliminar:hover {
+  background-color: #B30000;
+}
+
+.cambiar-cursor:hover {
+  cursor: pointer;
+}

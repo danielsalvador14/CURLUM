@@ -2,20 +2,20 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>CURLUM - Formación Académica</title>
+		<title>CURLUM - Producción Académica</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
-    <link rel="stylesheet" href="../css/style-pro-formacion.css">
-		<link rel="stylesheet" href="../css/font-family.css"> <!-- Linea agregada -->
+    <link rel="stylesheet" href="../css/style-pro-produccion.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
 		<script type="text/javascript">
 
-			function editarGrado(_cedula){
-				console.log("Modificar Grado!");
-				setTimeout("location.href='pro_formacion_edit.php?cedula_profesional="+_cedula+"'", 0);
+			function editarProduccion(_id_produccion){
+				console.log("Modificar Produccion!");
+				setTimeout("location.href='pro_produccion_edit.php?id="+_id_produccion+"'", 0);
 			}
 
 		</script>
@@ -37,19 +37,35 @@
 		$resultado = mysqli_query($conexion, $sql);
 		return mysqli_fetch_array($resultado);
 	}
-	function getNivel($idnivel){
+	function getTipo($idtipo){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = "SELECT * FROM nivel WHERE id = '$idnivel'";
+		$sql = "SELECT * FROM tipo_produccion WHERE id = '$idtipo'";
 		$resultado = mysqli_query($conexion, $sql);
 		return mysqli_fetch_array($resultado);
 	}
-	function grados($persona){
+	function getAutores($registro){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = "SELECT * FROM grado WHERE id_profesor = ".$persona['id'];
+		$sql = "SELECT * FROM produccion_autores WHERE numRegistro = '$registro'";
+		return mysqli_query($conexion, $sql);
+	}
+	function autores($autores){
+		echo '<ul id="lista-autores" class="lista-grado">';
+		while ($autor = mysqli_fetch_array($autores)) {
+			echo "<li>".$autor['nombre_autor']." ".$autor['apellidoP_autor']." ";
+			if ($autor['apellidoM_autor']) {
+				echo $autor['apellidoM_autor'];
+			}
+			echo "</li>";
+		}
+		echo "</ul>";
+	}
+	function producciones($persona){
+		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+		$sql = "SELECT * FROM produccion WHERE id_profesor = ".$persona['id'];
 		$resultado = mysqli_query($conexion, $sql);
 		if ($resultado) {
 			$cont = 0;
-			while($grados = mysqli_fetch_array($resultado)){
+			while($produccion = mysqli_fetch_array($resultado)){
 				if ($cont == 0) {
 					echo '<div class="row mb-2">';
 				}
@@ -58,22 +74,18 @@
 					<div class="card flex-md-row mb-4 box-shadow h-md-250">
 						<div class="card-body d-flex flex-column align-items-start">
 							<h3 class="mb-0 h-font">
-								<a class="text-dark">'.getNivel($grados['id_nivel'])['nombre'].' '.$grados['nombre'].'</a>
+								<a class="text-dark">'.$produccion['titulo'].'</a>
 							</h3>
-							<h4>
-								<a class="text-dark h-font"><span class="p-font">Institución: </span>'.$grados['institucion'].'</a>
-							</h4>
-							<p class="card-text mb-auto p-font">Cédula Profesional: '.$grados['cedula_profesional'].'</p>
-							<p>
-								<ul class="lista-grado">
-									<li>Fehca de inicio de carrera: '.$grados['fecha_inicio'].'</li>
-									<li>Fecha de fin de carrera: '.$grados['fecha_fin'].'</li>
-									<li>Fecha de obtenido de título: '.$grados['fecha_obtencion'].'</li>
-								</ul>
-								<div class="boton-editar">
-									<button class="btn btn-lg btn-secondary btn-block" name="eliminar" onclick="editarGrado('.$grados['cedula_profesional'].')">Editar</button>
-								</div>
+              <p class="text-dark h-font"><span class="p-font">Tipo: </span>'.getTipo($produccion['tipo'])['nombre'].'</p>
+							<p id="institucion" class="text-dark h-font"><span class="p-font">Institución: </span>'.$produccion['institucion'].'</p>
+							<p id="fecha" class="text-dark h-font"><span class="p-font">Fecha de ~lanzado~: </span>'.$produccion['fecha'].'</p>
+							<p id="autores" class="text-dark h-font"><span class="p-font">Autores:</p>
+							<p>';?><?php autores(getAutores($produccion['numRegistro'])) ?>
+							<?php echo '
 							</p>
+							<div class="boton-editar">
+								<button class="btn btn-lg btn-secondary btn-block" name="editar" onclick="editarProduccion('.$produccion['numRegistro'].')">Editar</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -120,8 +132,8 @@
 	      <div class="nav-scroller py-1 mb-2 bg-dark">
 	        <nav class="nav d-flex justify-content-between"> <!-- Lista modificada -->
 	          <a class="p-2 text-white p-font" href="#">Datos Personales</a>
-	          <a class="p-2 text-white p-font">Formación Académica</a>
-	          <a class="p-2 text-white p-font" href="#">Producción Académica</a>
+	          <a class="p-2 text-white p-font" href="#">Formación Académica</a>
+	          <a class="p-2 text-white p-font">Producción Académica</a>
 	          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
 	          <a class="p-2 text-white p-font" href="#">Tutorías</a>
 	          <a class="p-2 text-white p-font" href="#">Configuración</a>
@@ -130,18 +142,18 @@
 
 				<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
 					<div class="col-md-6 px-0">
-						<h1 class="display-4 font-italic h-font">Formación Académica</h1>
-						<p class="lead my-3">En este módulo encontrará los registros de los niveles académicos que ha obtenido. Puede agregar, modificar o incluso eliminar un registro.</p>
+						<h1 class="display-4 font-italic h-font">Producción Académica</h1>
+						<p class="lead my-3">En este módulo encontrará los registros de las producciones académicos que ha desarrollado. Puede agregar, modificar o incluso eliminar un registro.</p>
 					</div>
 				</div>
 
 	      <div>
 					<div class="div-boton-crear">
-						<a href="pro_formacion_register.php"><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Registrar</button></a>
+						<a href="pro_produccion_register.php"><button class="btn btn-lg btn-secondary btn-block" name="crear" type="submit">Registrar</button></a>
 						<br><br><br>
 					</div>
-          <div id="grados-registros" class="div-grados">
-						<?php grados(getProfesor($_SESSION['username'])); ?>
+          <div id="producciones-registros" class="div-producciones">
+						<?php producciones(getProfesor($_SESSION['username'])); ?>
           </div>
         </div>
 

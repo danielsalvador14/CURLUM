@@ -1,0 +1,58 @@
+.t-thead tr th {
+  border: 5px solid;
+  padding: 5px;
+}
+
+.t-tbody tr td {
+  border: 1px solid;
+  padding: 2px;
+}
+
+.tr-boton {
+  margin: 0;
+  padding-top: 2px;
+}
+
+.lista-grado {
+  text-align: left;
+}
+
+.div-boton-crear {
+  width: 10%;
+}
+
+.div-producciones {
+  position: relative;
+  left: 0px;
+}
+
+#producciones-registros {
+  position: relative;
+  left: 0px;
+}
+
+#institucion {
+  position: relative;
+  top: -10%;
+}
+
+#fecha {
+  position: relative;
+  top: -20%;
+}
+
+#autores {
+  position: relative;
+  top: -30%;
+}
+
+#lista-autores {
+  position: relative;
+  top: -50%;
+}
+
+.boton-editar {
+  position: relative;
+  top: -36%;
+  left: 85%;
+}

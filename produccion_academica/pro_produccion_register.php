@@ -2,36 +2,29 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>CURLUM - Formación Académica - Registrar</title>
+		<title>CURLUM - Producción Académica - Registrar</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
-    <link rel="stylesheet" href="../css/style-pro-formacion-edit.css">
-		<link rel="stylesheet" href="../css/font-family.css"> <!-- Linea agregada -->
+    <link rel="stylesheet" href="../css/style-pro-produccion-edit.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
 		<script type="text/javascript">
-			function solicitarModificacion(_id){
-				if ($("#nombre").val() == ""){
-					alert("Ingrese Nombre!");
-				} else if ($("#institucion").val() == ""){
+			function solicitarModificacion(_id_prof){
+				if (document.getElementById("titulo").value == ""){
+					alert("Ingrese Titulo!");
+				} else if (document.getElementById("institucion").value == ""){
 					alert("Ingrese Institucion!");
-				} else if ($("#cedula_profesional").val() == ""){
-					alert("Ingrese Cédula Profesional!");
-				} else if ($("#fecha_inicio").val() == "" ||
-										$("#fecha_fin").val() == "" ||
-										$("#fecha_obtencion").val() == ""){
+				} else if (!document.getElementById("fecha_produccion").value){
 					alert("Ingrese Fecha!");
-				} else {
-					nombre = document.getElementById("nombre").value;
-					nivel = document.getElementById("nivel").value;
+				} else {	
+					titulo = document.getElementById("titulo").value;
+					tipo = document.getElementById("tipo").value;
 					institucion = document.getElementById("institucion").value;
-					cedula_profesional = document.getElementById("cedula_profesional").value;
-					fech_i = document.getElementById("fecha_inicio").value;
-					fech_f = document.getElementById("fecha_fin").value;
-					fech_o = document.getElementById("fecha_obtencion").value;
-					setTimeout("location.href='pro_formacion_create.php?id="+_id+"&cedula_profesional="+cedula_profesional+"&nombre="+nombre+"&nivel="+nivel+"&institucion="+institucion+"&fecha_inicio="+fech_i+"&fecha_fin="+fech_f+"&fecha_obtencion="+fech_o+"'", 0);
+					fecha = document.getElementById("fecha_produccion").value;
+					setTimeout("location.href='pro_produccion_create.php?id_profesor="+_id_prof+"&titulo="+titulo+"&tipo="+tipo+"&institucion="+institucion+"&fecha="+fecha+"'", 0);
 				}
 			}
 		</script>
@@ -82,13 +75,13 @@
 	      </header>
 
 	      <div class="nav-scroller py-1 mb-2 bg-dark">
-	        <nav class="nav d-flex justify-content-between"> <!-- Lista modificada -->
-	          <a class="p-2 text-white p-font" href="pro_formacion.php">Regresar</a>
+	        <nav class="nav d-flex justify-content-between">
+	          <a class="p-2 text-white p-font" href="pro_produccion.php">Regresar</a>
 	        </nav>
 	      </div>
 
         <div class="py-5 text-center">
-	        <h2 class="h-font">Editar Grado Académico</h2>
+	        <h2 class="h-font">Editar Producción Académico</h2>
 	      </div>
 
 	      <div class="row">
@@ -100,7 +93,7 @@
 	          <ul class="list-group mb-3">
 	            <li class="list-group-item d-flex justify-content-between lh-condensed">
 	              <div>
-	                <h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Guardar"?</h6>
+	                <h6 class="my-0 h-font">¿Que pasará cuando haga clic sobre "Guardar"?</h6>
 	                <small class="text-muted p-font">Tal como dice, guardará inmediatamente los datos en un nuevo registro, por lo cual, recomendamos la verificación del contenido ingresado.</small>
 	              </div>
 	            </li>
@@ -108,24 +101,25 @@
 	        </div>
 
 	        <div class="col-md-8 order-md-1">
-	          <h4 class="mb-3 h-font">Nuevo Grado Académico</h4>
+	          <h4 class="mb-3 h-font">Nueva Producción Académico</h4>
 	          <form method="post" class="needs-validation">
 	            <div class="row">
 	              <div class="col-md-6 mb-3">
-	                <label for="username" class="p-font">Nombre de Carrea</label>
-									<?php echo '<input type="text" class="form-control" id="nombre" required>' ?>
+	                <label for="username" class="p-font">Título de Producción</label>
+									<?php echo '<input type="text" class="form-control" id="titulo" required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
 	              </div>
 
 								<div class="col-md-6 mb-3">
-	                <label for="Cnivel" class="p-font">Nivel de Carrera</label>
-	                <select class="custom-select d-block w-100" name="nivel" id="nivel" onChange="mostrar(this.value);" required>
-	                  <option value="1" selected>Licenciatura</option>
-	                  <option value="2">Especialidad</option>
-										<option value="3">Maestria</option>
-										<option value="4">Doctorado</option>
+	                <label for="Cnivel" class="p-font">Tipo de Producción</label>
+	                <select class="custom-select d-block w-100" name="tipo" id="tipo" onChange="mostrar(this.value);" required>
+	                  <option value="1" selected>Libro</option>
+	                  <option value="2">Capítulo de Libro</option>
+										<option value="3">Artículo</option>
+										<option value="4">Informe</option>
+										<option value="5">Desarrollo de Software</option>
 	                </select>
 	              </div>
 
@@ -137,26 +131,10 @@
 	                </div>
 	              </div>
 
-								<div class="col-md-6 mb-3">
-	                <label for="username" class="p-font">Cédula Profesional</label>
-									<?php echo '<input type="text" class="form-control" id="cedula_profesional" required>' ?>
-	                <div class="invalid-feedback">
-	                  Campo requerido.
-	                </div>
-	              </div>
-
-	              <div id="fecha-inicio" class="fechas">
+	              <div id="fecha" class="fecha">
 									<div class="fecha">
 										<label for="Cnivel" class="p-font">Fecha de Inicio</label><br>
-										<input id="fecha_inicio" type="date" name="fecha-inicio" class="cambiar-cursor">
-									</div>
-									<div id="fecha-fin" class="fecha">
-										<label for="Cnivel" class="p-font">Fecha de Fin</label><br>
-										<input id="fecha_fin" type="date" name="fecha-fin" class="cambiar-cursor">
-									</div>
-									<div id="fecha-obtencion" class="fecha">
-										<label for="Cnivel" class="p-font">Fecha de Obtención</label><br>
-										<input id="fecha_obtencion" type="date" name="fecha-obtencion" class="cambiar-cursor">
+										<input id="fecha_produccion" type="date" name="fecha" class="cambiar-cursor">
 									</div>
 
 									<div id="botones">
