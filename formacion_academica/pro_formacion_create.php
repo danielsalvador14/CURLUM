@@ -1,6 +1,8 @@
 <?php
 
-if (isset($_POST) && $_GET['cedula_profesional']){
+if (isset($_POST) && isset($_GET['cedula_profesional']) && isset($_GET['id'])
+&& isset($_GET['nombre']) && isset($_GET['nivel']) && isset($_GET['institucion'])
+&& isset($_GET['fecha_inicio']) && isset($_GET['fecha_fin']) && isset($_GET['fecha_obtencion'])){
   $conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
 	$sql = 'INSERT INTO grado'.'(id_profesor, cedula_profesional, nombre, id_nivel, institucion, fecha_inicio, fecha_fin, fecha_obtencion)
   VALUES('.$_GET['id'].',"

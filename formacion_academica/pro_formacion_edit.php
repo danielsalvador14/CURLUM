@@ -13,9 +13,9 @@
 
 		<script type="text/javascript">
 			function solicitarModificacion(_cedula){
-				if ($("#nombre").val() == ""){
+				if (!document.getElementById("nombre").value){
 					alert("Ingrese Nombre!");
-				} else if ($("#institucion").val().lenght == 0){
+				} else if (!document.getElementById("institucion").value){
 					alert("Ingrese Institucion!");
 				} else {
 					nombre = document.getElementById("nombre").value;
@@ -65,7 +65,7 @@
 		';
 		header('Location: pro_formacion.php');
 	}
-	elseif(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+	elseif(isset($_SESSION['username']) && isset($_SESSION['profesor']) && isset($_GET['cedula_profesional'])){
 	?>
 
 		<body>

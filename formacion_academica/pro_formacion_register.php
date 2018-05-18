@@ -13,15 +13,15 @@
 
 		<script type="text/javascript">
 			function solicitarModificacion(_id){
-				if ($("#nombre").val() == ""){
+				if (!document.getElementById("nombre").value){
 					alert("Ingrese Nombre!");
-				} else if ($("#institucion").val() == ""){
+				} else if (!document.getElementById("institucion").value){
 					alert("Ingrese Institucion!");
-				} else if ($("#cedula_profesional").val() == ""){
+				} else if (!document.getElementById("cedula_profesional").value){
 					alert("Ingrese Cédula Profesional!");
-				} else if ($("#fecha_inicio").val() == "" ||
-										$("#fecha_fin").val() == "" ||
-										$("#fecha_obtencion").val() == ""){
+				} else if (!document.getElementById("fecha_inicio").value ||
+										!document.getElementById("fecha_fin").value ||
+										!document.getElementById("fecha_obtencion").value){
 					alert("Ingrese Fecha!");
 				} else {
 					nombre = document.getElementById("nombre").value;
