@@ -20,13 +20,16 @@
 				} else {
 					nombre = document.getElementById("nombre").value;
 					apellidoP = document.getElementById("apellidop").value;
-					titulo = document.getElementById("titulo").value;
+					nombre_o = document.getElementById("nombre_original").value;
+					apellidoP_o = document.getElementById("apellidop_original").value;
+					apellidoM_o = document.getElementById("apellidom_original").value;
 
 					if (document.getElementById("apellidom").value) {
 						apellidoM = document.getElementById("apellidom").value;
-						setTimeout("location.href='pro_produccion_create_autor.php?numregistro="+_numregistro+"&titulo="+titulo+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+						setTimeout("location.href='pro_produccion_modify_autor.php?numregistro="+_numregistro+"&nombre_original="+nombre_o+"&apellidop_original="+apellidoP_o+"&apellidom_original="+apellidoM_o+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
 					} else {
-						setTimeout("location.href='pro_produccion_create_autor.php?numregistro="+_numregistro+"&titulo="+titulo+"&nombre="+nombre+"&apellidop="+apellidoP+"'", 0);
+						apellidoM = "";
+						setTimeout("location.href='pro_produccion_modify_autor.php?numregistro="+_numregistro+"&nombre_original="+nombre_o+"&apellidop_original="+apellidoP_o+"&apellidom_original="+apellidoM_o+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
 					}
 				}
 			}
@@ -53,8 +56,13 @@
 	}
 
 	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
-		if(!$_GET['titulo'] || !$_GET['numregistro']){
+		if(!$_GET['nombre'] || !$_GET['numregistro'] || !$_GET['apellidop']){
 			header('Location: pro_produccion.php');
+		}
+		$am = false;
+		if (isset($_GET['apellidom'])) {
+			$am = true;
+			$apeM = $_GET['apellidom'];
 		}
 	?>
 
@@ -87,7 +95,7 @@
 	      </div>
 
         <div class="py-5 text-center">
-	        <h2 class="h-font">Agregar Autor de Producción</h2>
+	        <h2 class="h-font">Modificar Autor de Producción</h2>
 	      </div>
 
 	      <div class="row">
@@ -107,12 +115,11 @@
 	        </div>
 
 	        <div class="col-md-8 order-md-1">
-	          <h4 class="mb-3 h-font"><?php echo $_GET['titulo']; ?></h4>
 	          <form method="post" class="needs-validation">
 	            <div class="row">
 	              <div class="col-md-6 mb-3">
 	                <label for="username" class="p-font">Nombre de autor</label>
-									<?php echo '<input type="text" class="form-control" id="nombre" required>' ?>
+									<?php echo '<input type="text" class="form-control" id="nombre" value='.$_GET['nombre'].' required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
@@ -120,7 +127,7 @@
 
 								<div class="col-md-6 mb-3">
 	                <label for="username" class="p-font">Apellido Paterno</label>
-									<?php echo '<input type="text" class="form-control" id="apellidop" required>' ?>
+									<?php echo '<input type="text" class="form-control" id="apellidop" value='.$_GET['apellidop'].' required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
@@ -128,7 +135,13 @@
 
 								<div class="col-md-6 mb-3">
 	                <label for="username" class="p-font">Apellido Materno</label>
-									<?php echo '<input type="text" class="form-control" id="apellidom" placeholder="No requerido">' ?>
+									<?php
+									if ($am) {
+										echo '<input type="text" class="form-control" id="apellidom" placeholder="No requerido" value='.$apeM.'>';
+									} else {
+										echo '<input type="text" class="form-control" id="apellidom" placeholder="No requerido">';
+									}
+									?>
 	              </div>
 
 	              <div id="fecha" class="fecha">
@@ -143,7 +156,13 @@
 	        </div>
 	      </div>
 	  	</div>
-			<input id="titulo" type="hidden" value=<?php echo '"'.$_GET['titulo'].'"' ?>>
+			<input id="nombre_original" type="hidden" value=<?php echo '"'.$_GET['nombre'].'"' ?>>
+			<input id="apellidop_original" type="hidden" value=<?php echo '"'.$_GET['apellidop'].'"' ?>>
+			<?php if ($am) {
+				echo '<input id="apellidom_original" type="hidden" value="'.$apeM.'">';
+			} else {
+				echo '<input id="apellidom_original" type="hidden" value="">';
+			} ?>
 	      <footer class="blog-footer text-white">
 		      <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		      <p><a href="pro_formacion.php" class="link-color">Regresar</a></p>

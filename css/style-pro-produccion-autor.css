@@ -22,12 +22,12 @@
 }
 
 #botones {
-  position: absolute;
-  top: 95%;
-  left: 61%;
+  position: relative;
+  top: 100%;
+  left: 115%;
 }
 
-.boton-eliminar:hover {
+#boton-eliminar:hover {
   background-color: #B30000;
 }
 
@@ -35,11 +35,7 @@
   cursor: pointer;
 }
 
-.tupla-tabla {
-  /* background-color: white;*/
-}
-
-.btn-tabla {
-  font-size: 80%;
-  padding: 0;
+footer {
+  position: relative;
+  top: 5%;
 }

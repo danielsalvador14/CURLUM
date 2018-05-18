@@ -19,7 +19,7 @@
 					alert("Ingrese Institucion!");
 				} else if (!document.getElementById("fecha_produccion").value){
 					alert("Ingrese Fecha!");
-				} else {	
+				} else {
 					titulo = document.getElementById("titulo").value;
 					tipo = document.getElementById("tipo").value;
 					institucion = document.getElementById("institucion").value;

@@ -80,12 +80,12 @@
 							<p id="institucion" class="text-dark h-font"><span class="p-font">Institución: </span>'.$produccion['institucion'].'</p>
 							<p id="fecha" class="text-dark h-font"><span class="p-font">Fecha de ~lanzado~: </span>'.$produccion['fecha'].'</p>
 							<p id="autores" class="text-dark h-font"><span class="p-font">Autores:</p>
-							<p>';?><?php autores(getAutores($produccion['numRegistro'])) ?>
-							<?php echo '
-							</p>
 							<div class="boton-editar">
 								<button class="btn btn-lg btn-secondary btn-block" name="editar" onclick="editarProduccion('.$produccion['numRegistro'].')">Editar</button>
 							</div>
+							<p>';?><?php autores(getAutores($produccion['numRegistro'])) ?>
+							<?php echo '
+							</p>
 						</div>
 					</div>
 				</div>

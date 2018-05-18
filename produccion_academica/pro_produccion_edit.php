@@ -7,37 +7,64 @@
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
-    <link rel="stylesheet" href="../css/style-pro-formacion-edit.css">
-		<link rel="stylesheet" href="../css/font-family.css"> <!-- Linea agregada -->
+    <link rel="stylesheet" href="../css/style-pro-produccion-edit.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
 		<script type="text/javascript">
-			function solicitarModificacion(_cedula){
-				if ($("#nombre").val() == ""){
-					alert("Ingrese Nombre!");
-				} else if ($("#institucion").val().lenght == 0){
+			function solicitarModificacion(_id_produccion){
+				if (document.getElementById("titulo").value == ""){
+					alert("Ingrese Titulo!");
+				} else if (document.getElementById("institucion").value == ""){
 					alert("Ingrese Institucion!");
+				} else if (!document.getElementById("fecha_produccion").value){
+					alert("Ingrese Fecha!");
 				} else {
-					nombre = document.getElementById("nombre").value;
-					nivel = document.getElementById("nivel").value;
+					titulo = document.getElementById("titulo").value;
+					tipo = document.getElementById("tipo").value;
 					institucion = document.getElementById("institucion").value;
-					fech_i = document.getElementById("fecha_inicio").value;
-					fech_f = document.getElementById("fecha_fin").value;
-					fech_o = document.getElementById("fecha_obtencion").value;
-					setTimeout("location.href='pro_formacion_modify.php?cedula_profesional="+_cedula+"&nombre="+nombre+"&nivel="+nivel+"&institucion="+institucion+"&fecha_inicio="+fech_i+"&fecha_fin="+fech_f+"&fecha_obtencion="+fech_o+"'", 0);
+					fecha = document.getElementById("fecha_produccion").value;
+					setTimeout("location.href='pro_produccion_modify.php?id="+_id_produccion+"&titulo="+titulo+"&tipo="+tipo+"&institucion="+institucion+"&fecha="+fecha+"'", 0);
 				}
+			}
+
+			function solicitarModificacionAutor(numRegistro_tupla){
+				numRegistro = numRegistro_tupla.split("|")[0];
+				tupla = numRegistro_tupla.split("|")[1];
+				autor = document.getElementById("autor_"+tupla).value;
+				nombre = autor.split("_")[0];
+				apellidoP = autor.split("_")[1];
+				if (autor.split("_")[2]) {
+					apellidoM = autor.split("_")[2];
+					setTimeout("location.href='pro_produccion_edit_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+				} else {
+					setTimeout("location.href='pro_produccion_edit_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"'", 0);
+				}
+			}
+			function borrarAutor(numRegistro_tupla){
+				numRegistro = numRegistro_tupla.split("|")[0];
+				tupla = numRegistro_tupla.split("|")[1];
+				autor = document.getElementById("autor_"+tupla).value;alert(autor);
+				nombre = autor.split("_")[0];
+				apellidoP = autor.split("_")[1];
+				if (autor.split("_")[2]) {
+					apellidoM = autor.split("_")[2];
+					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+				} else {
+					apellidoM = "";
+					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+				}
+			}
+			function agregarAutor(_numRegistro_titulo){
+				numRegistro = _numRegistro_titulo.split('|')[0];
+				titulo = _numRegistro_titulo.split('|')[1];
+				setTimeout("location.href='pro_produccion_register_autores.php?numregistro="+numRegistro+"&titulo="+titulo+"'", 0);
 			}
 		</script>
 	</head>
 
 	<?php
 	session_start();
-	$cedula = $_GET['cedula_profesional'];
-	$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-	$sql = 'SELECT * FROM grado WHERE cedula_profesional = "'.$_GET['cedula_profesional'].'"';
-	$resultado = mysqli_query($conexion, $sql);
-	$grado = mysqli_fetch_array($resultado);
-
 
   function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
@@ -47,25 +74,51 @@
     echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
   }
 
-  function getNivel($idnivel){
+  function getTipo($id_produccion){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = 'SELECT * FROM nivel WHERE id = "'.$idnivel.'"';
+		$sql = 'SELECT * FROM tipo_produccion WHERE numRegistro = "'.$id_produccion.'"';
 		$resultado = mysqli_query($conexion, $sql);
 		return mysqli_fetch_array($resultado);
 	}
 
-	if(isset($_POST['eliminar_grado'])){
+	function autores($num){
 		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-		$sql = 'DELETE FROM grado WHERE cedula_profesional = "'.$_GET['cedula_profesional'].'"';
-		mysqli_query($conexion, $sql);
-		echo '
-		<script>
-		alert("ALERTA");
-		</script>
-		';
-		header('Location: pro_formacion.php');
+		$sql = 'SELECT * FROM produccion_autores WHERE numRegistro = "'.$num.'"';
+		$resultado = mysqli_query($conexion, $sql);
+		$cont = 1;
+		while ($autor = mysqli_fetch_array($resultado)) {
+			echo '<tr class="tupla-tabla">';
+			if ($autor['apellidoM_autor']) {
+				echo '<td><input id="autor_'.$cont.'" class="form-control" type="text" value="'.$autor['nombre_autor'].'_'.$autor['apellidoP_autor'].'_'.$autor['apellidoM_autor'].'" disabled> </td>';
+			} else {
+				echo '<td><input id="autor_'.$cont.'" class="form-control" type="text" value="'.$autor['nombre_autor'].'_'.$autor['apellidoP_autor'].'" disabled> </td>';
+			}
+			echo '
+				<td><button class="btn btn-lg btn-secondary btn-block btn-tabla" name="modificar_autor" value="'.$num.'|'.$cont.'" onclick="solicitarModificacionAutor(value)">Modificar</button></td>
+				<td><button class="btn btn-lg btn-secondary btn-block boton-eliminar btn-tabla" name="eliminar_autor" value="'.$num.'|'.$cont.'" onclick="borrarAutor(value)">Eliminar</button></td>
+			</tr>
+			';
+			$cont += 1;
+		}
 	}
-	elseif(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+
+	if(isset($_POST['eliminar_produccion'])){
+		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+		$sql = 'DELETE FROM produccion_autores WHERE numRegistro = '.$_GET['id'];
+		mysqli_query($conexion, $sql);
+		$sql = 'DELETE FROM produccion WHERE numRegistro = '.$_GET['id'];
+		mysqli_query($conexion, $sql);
+		header('Location: pro_produccion.php');
+	} elseif(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+		if(!$_GET['id']){
+			header('Location: pro_produccion.php');
+	}
+
+	$id_produccion = $_GET['id'];
+	$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+	$sql = 'SELECT * FROM produccion WHERE numRegistro = "'.$id_produccion.'"';
+	$resultado = mysqli_query($conexion, $sql);
+	$produccion = mysqli_fetch_array($resultado);
 	?>
 
 		<body>
@@ -92,12 +145,12 @@
 
 	      <div class="nav-scroller py-1 mb-2 bg-dark">
 	        <nav class="nav d-flex justify-content-between"> <!-- Lista modificada -->
-	          <a class="p-2 text-white p-font" href="pro_formacion.php">Regresar</a>
+	          <a class="p-2 text-white p-font" href="pro_produccion.php">Regresar</a>
 	        </nav>
 	      </div>
 
         <div class="py-5 text-center">
-	        <h2 class="h-font">Editar Grado Académico</h2>
+	        <h2 class="h-font">Editar Producción Académica</h2>
 	      </div>
 
 	      <div class="row">
@@ -117,30 +170,31 @@
 	        </div>
 
 	        <div class="col-md-8 order-md-1">
-	          <h4 class="mb-3 h-font">Datos del Grado Académico</h4>
+	          <h4 class="mb-3 h-font">Datos de la Producción Académica</h4>
 	          <form method="post" class="needs-validation">
 	            <div class="row">
 	              <div class="col-md-6 mb-3">
-	                <label for="username" class="p-font">Nombre de Carrea</label>
-									<?php echo '<input type="text" class="form-control" id="nombre" value="'.$grado['nombre'].'" required>' ?>
+									<label for="username" class="p-font">Título de Producción</label>
+									<?php echo '<input type="text" class="form-control" id="titulo" value="'.$produccion['titulo'].'" required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
 	              </div>
 
 								<div class="col-md-6 mb-3">
-	                <label for="Cnivel" class="p-font">Nivel de Carredo</label>
-	                <select class="custom-select d-block w-100" name="nivel" id="nivel" onChange="mostrar(this.value);" required>
-	                  <option value="1" <?php if ($grado['id_nivel'] == 1) echo "selected";?> >Licenciatura</option>
-	                  <option value="2" <?php if ($grado['id_nivel'] == 2) echo "selected";?> >Especialidad</option>
-										<option value="3" <?php if ($grado['id_nivel'] == 3) echo "selected";?> >Maestria</option>
-										<option value="4" <?php if ($grado['id_nivel'] == 4) echo "selected";?> >Doctorado</option>
+	                <label for="Cnivel" class="p-font">Tipo de Producción</label>
+	                <select class="custom-select d-block w-100" name="tipo" id="tipo" onChange="mostrar(this.value);" required>
+										<option value="1" <?php if ($produccion['tipo'] == 1) echo "selected";?> >Libro</option>
+	                  <option value="2" <?php if ($produccion['tipo'] == 2) echo "selected";?> >Capítulo de Libro</option>
+										<option value="3" <?php if ($produccion['tipo'] == 3) echo "selected";?> >Artículo</option>
+										<option value="4" <?php if ($produccion['tipo'] == 4) echo "selected";?> >Informe</option>
+										<option value="5" <?php if ($produccion['tipo'] == 5) echo "selected";?> >Desarrollo de Software</option>
 	                </select>
 	              </div>
 
 								<div class="col-md-6 mb-3">
 	                <label for="username" class="p-font">Nombre de Institucion</label>
-									<?php echo '<input type="text" class="form-control" id="institucion" value="'.$grado['institucion'].'" required>' ?>
+									<?php echo '<input type="text" class="form-control" id="institucion" value="'.$produccion['institucion'].'" required>' ?>
 	                <div class="invalid-feedback">
 	                  Campo requerido.
 	                </div>
@@ -148,25 +202,25 @@
 
 	              <div id="fecha-inicio" class="fechas">
 									<div class="fecha">
-										<label for="Cnivel" class="p-font">Fecha de Inicio</label><br>
-										<input id="fecha_inicio" class="cambiar-cursor" type="date" name="fecha-inicio" value= <?php echo '"'.$grado['fecha_inicio'].'"'; ?>>
-									</div>
-									<div id="fecha-fin" class="fecha">
-										<label for="Cnivel" class="p-font">Fecha de Fin</label><br>
-										<input id="fecha_fin" class="cambiar-cursor" type="date" name="fecha-fin" value= <?php echo '"'.$grado['fecha_fin'].'"'; ?>>
-									</div>
-									<div id="fecha-obtencion" class="fecha">
-										<label for="Cnivel" class="p-font">Fecha de Obtención</label><br>
-										<input id="fecha_obtencion" class="cambiar-cursor" type="date" name="fecha-obtencion" value= <?php echo '"'.$grado['fecha_obtencion'].'"'; ?>>
-									</div>
-
-									<div id="botones">
-										<table>
-											<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$_GET['cedula_profesional'].'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
-											<th><button id="boton-eliminar" class="btn btn-lg btn-secondary btn-block" name="eliminar_grado" value=<?php echo '"'.$_GET['cedula_profesional'].'"'; ?>>Eliminar</button></th>
-										</table>
+										<label for="Cnivel" class="p-font">Fecha</label><br>
+										<input id="fecha_produccion" type="date" name="fecha-obtencion" class="cambiar-cursor" value= <?php echo '"'.$produccion['fecha'].'"'; ?>>
 									</div>
 	              </div>
+
+								<div class="col-md-6 mb-3">
+	                <label for="username" class="p-font">Autores</label>
+									<table id="tabla-autores">
+										<?php autores($id_produccion) ?>
+										<td><button class="btn btn-lg btn-secondary btn-block btn-tabla" name="eliminar_autor" value=<?php echo '"'.$id_produccion.'|'.$produccion['titulo'].'"'; ?> onclick="agregarAutor(value)">Añadir</button></td>
+									</table>
+	              </div>
+
+								<div id="botones">
+									<table>
+										<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$id_produccion.'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
+										<th><button class="btn btn-lg btn-secondary btn-block boton-eliminar" name="eliminar_produccion" value=<?php echo '"'.$id_produccion.'"'; ?>>Eliminar</button></th>
+									</table>
+								</div>
 							</form>
 						</div>
 	        </div>
