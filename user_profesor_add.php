@@ -46,13 +46,13 @@
 			if($_POST['Cnivel'] == "Profesor"){	$nivel = "1";  }
 			else{ 	$nivel = "2"; 	}
 
-			$Nuevo="1";
+			$Nuevo="1"; //Variable de control, si es 1 el usuario es nuevo, y valido
 			$recupera = "SELECT * FROM usuario";
 			$resultado = mysqli_query($conexion, $recupera);
 
 			while($reg = mysqli_fetch_array($resultado)){
 				if($reg['username'] == $username){
-					$Nuevo = "2";
+					$Nuevo = "2"; //Usuario Repetido
 				}
 			}
 			if($Nuevo=="1"){
@@ -71,7 +71,7 @@
 				$resultado = mysqli_query($conexion, $sql);
 
 				if($nivel=="1"){
-					$sql = "INSERT INTO profesor(id, nombre, apellidoP, apellidoM, email, calle, numero, colonia, ciudad, telefono, fotografia, username) VALUES('$idProfesor', '$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio', NULL, '$username')";
+					$sql = "INSERT INTO profesor(id, nombre, apellidoP, apellidoM, email, calle, numero, colonia, ciudad, telefono, username) VALUES('$idProfesor', '$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio','$vacio', '$username')";
 					$resultado = mysqli_query($conexion, $sql);
 				}
 				header('Location: user_profesor.php');
