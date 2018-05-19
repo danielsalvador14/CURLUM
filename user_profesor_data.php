@@ -17,7 +17,8 @@
 	$username = $_SESSION['username'];
 
 	if(isset($_SESSION['username'])){
-		$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+        //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 		$sql = "SELECT * FROM profesor WHERE id='$idProfesor'";
 		$resultado = mysqli_query($conexion, $sql);
 		$profesor = mysqli_fetch_array($resultado);

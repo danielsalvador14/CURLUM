@@ -16,7 +16,8 @@
       //Inicio de secion
       session_start();
       //Conexion a BD
-      $conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+      $conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+      //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 
       //iniciar variables
       $usuario = "";
@@ -80,7 +81,6 @@
       <footer class="blog-footer text-white">
           <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
       </footer>
-
     </div>
 
     <script src="js/jquery.js"></script>

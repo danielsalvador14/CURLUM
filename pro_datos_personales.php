@@ -13,14 +13,16 @@
 	<?php 
 	session_start();
 	function nombre($username){
-						$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
-						$sql = "SELECT * FROM profesor WHERE username = '$username'";
-						$resultado = mysqli_query($conexion, $sql);
-						$persona = mysqli_fetch_array($resultado);
-						echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
-					}
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+			//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		$sql = "SELECT * FROM profesor WHERE username = '$username'";
+		$resultado = mysqli_query($conexion, $sql);
+		$persona = mysqli_fetch_array($resultado);
+		echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
+	}
 
-	$conexion = mysqli_connect("localhost", "root", "", "bd_curriculum");
+	$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+    //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 	$username = $_SESSION['username'];
 	$sql = "SELECT * FROM profesor WHERE username='$username'";
 	$resultado = mysqli_query($conexion, $sql);
@@ -30,7 +32,6 @@
 
 	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){ 
 	?>
-
 		<body>
 			<div class="container">
 		      <header class="blog-header py-3">
@@ -43,12 +44,10 @@
 		            <a class="blog-header-logo text-dark" href="#">CURLUM</a>
 		          </div>
 		          <div class="col-4 d-flex justify-content-end align-items-center">
-
 		            <a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
 		          </div>
 		        </div>
 		      </header>
-
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
 		          <a class="p-2 text-white" href="pro_datos_personales.php">Datos Personales</a>
@@ -59,10 +58,7 @@
 		          <a class="p-2 text-white" href="#">Configuración</a>
 		        </nav>
 		      </div>
-
 		      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-		        
-
 		      	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 					<?php
 						$foto = $reg['id'];
@@ -99,23 +95,22 @@
 								<input class="btn btn-success" type="submit" name="cancelarimg" value="Cancelar">
 							</form>	
 						<?php
-						}else{
+						}
+						else{
 						?>
 						<form method="post" enctype="multipart/form-data"><br>
 							<input class="btn btn-success" type="submit" name="actualizarimg" value="Cambiar">
 							<input class="btn btn-success" type="submit" name="borrarimg" value="Eliminar">
 						</form>
-					<?php 
-					}
+						<?php 
+						}
 					?>
 				</div>
-
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
 					<table class="table table-bordered table-hover">
 						<?php 
 							$sql = "SELECT * FROM profesor WHERE id='$idProfesor'";
 							$resultado = mysqli_query($conexion, $sql);
-
 							while($reg = mysqli_fetch_array($resultado)){
 							echo "<tr><td>Código Profesor</td><td>".$reg['id']."</td></tr>".
 								 "<tr><td>Nombre</td><td>".$reg['nombre']."</td>"."</tr>".
@@ -130,21 +125,16 @@
 					<?php  
 						if(!isset($_POST['modificar'])){
 					?>
-						<form method="post">
-							<input class="btn btn-success" type="submit" name="modificar" value="Modificar">
-						</form>
+							<form method="post">
+								<input class="btn btn-success" type="submit" name="modificar" value="Modificar">
+							</form>
 					<?php
 						}
 						else{
 							header('Location: user_profesor_data.php');
 						}
 					?>
-					
 				</div>
-
-
-
-
 		      </div>
 		    </div>
 
