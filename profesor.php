@@ -16,7 +16,7 @@
 
 	function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
-			//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 		$sql = "SELECT * FROM profesor WHERE username = '$username'";
 		$resultado = mysqli_query($conexion, $sql);
 		$persona = mysqli_fetch_array($resultado);
@@ -24,7 +24,7 @@
 	}
 	function getIdProfesor($username){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
-			//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 		$sql = "SELECT * FROM profesor WHERE username = '$username'";
 		$resultado = mysqli_query($conexion, $sql);
 		$persona = mysqli_fetch_array($resultado);
@@ -45,7 +45,7 @@
 		            		<a class="blog-header-logo text-dark h-font" href="#">CURLUM</a>
 		          		</div>
 		          		<div class="col-4 d-flex justify-content-end align-items-center">
-		            		<a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
+		            		<a class="btn btn-sm btn-outline-secondary" href="logout.php">Cerrar Sesión</a>
 		          		</div>
 		        	</div>
 		      	</header>

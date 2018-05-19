@@ -46,18 +46,23 @@
 				}
 			}
 			function borrarAutor(numRegistro_tupla){
+				alert("Entro a Eliminar");
 				numRegistro = numRegistro_tupla.split("|")[0];
 				tupla = numRegistro_tupla.split("|")[1];
 				autor = document.getElementById("autor_"+tupla).value;alert(autor);
 				nombre = autor.split("_")[0];
 				apellidoP = autor.split("_")[1];
+				alert("Antes del IF");
 				if (autor.split("_")[2]) {
+					alert("A IF");
 					apellidoM = autor.split("_")[2];
 					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
 				} 
 				else {
+					alert("A Else");
 					apellidoM = "";
 					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+					alert("Okey");
 				}
 			}
 			function agregarAutor(_numRegistro_titulo){

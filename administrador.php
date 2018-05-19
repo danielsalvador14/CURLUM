@@ -28,15 +28,15 @@
 							<a class="blog-header-logo text-dark" href="administrador.php">CURLUM</a>
 						</div>
 					  	<div class="col-4 d-flex justify-content-end align-items-center">
-					    	<a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
+					    	<a class="btn btn-sm btn-outline-secondary" href="logout.php">Cerrar Sesión</a>
 					  	</div>
 					</div>
 				</header>
 
 				<div class="nav-scroller py-1 mb-2 bg-dark">
 					<nav class="nav d-flex justify-content-between">
-					  	<a class="p-2 text-white" href="user_profesor.php">Profesores Registrados</a>
-					  	<a class="p-2 text-white" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
+					  	<a class="p-2 text-white" href="administrador/user_profesor.php">Profesores Registrados</a>
+					  	<a class="p-2 text-white" href="administrador/user_profesor_add.php">Registrar Nuevo Usuario</a>
 					  	<a class="p-2 text-white" href="#">Modificar Usuario</a>
 					</nav>
 				</div>

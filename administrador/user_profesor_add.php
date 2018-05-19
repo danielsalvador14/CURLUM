@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<title>CREAR NUEVO PROFESOR | CURLUM</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/style-fuentes.css">
-		<link rel="stylesheet" href="css/style-blog.css">
-		<link rel="stylesheet" href="css/style-formulario.css">
-		<link rel="icon" href="imagenes/CURLUM.ico">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style-fuentes.css">
+		<link rel="stylesheet" href="../css/style-blog.css">
+		<link rel="stylesheet" href="../css/style-formulario.css">
+		<link rel="icon" href="../imagenes/CURLUM.ico">
 
 		<script type="text/javascript">	
 			function mostrar(nivel) {
@@ -96,7 +96,7 @@
 			          </div>
 			          <div class="col-4 d-flex justify-content-end align-items-center">
 
-			            <a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
+			            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
 			          </div>
 			        </div>
 			    </header>
@@ -161,7 +161,7 @@
 
               					<div class="col-md-6 mb-3" id="codigoP" style="display: none;">
 	             					<label for="idProfesor">Código del Profesor</label>
-	                				<input type="text" class="form-control" id="idProfesor" name="idProfesor" placeholder="" value="" required>
+	                				<input type="number" class="form-control" id="idProfesor" name="idProfesor" placeholder="" value="" required>
 	                				<div class="invalid-feedback">
 				    					Se Requiere un Codigo de Profesor Valido.
 	                				</div>

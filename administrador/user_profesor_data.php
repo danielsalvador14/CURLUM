@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<title>DATOS PERSONALES | CURLUM</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/style-fuentes.css">
-		<link rel="stylesheet" href="css/style-blog.css">
-		<link rel="stylesheet" href="css/style-formulario.css">
-		<link rel="icon" href="imagenes/CURLUM.ico">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style-fuentes.css">
+		<link rel="stylesheet" href="../css/style-blog.css">
+		<link rel="stylesheet" href="../css/style-formulario.css">
+		<link rel="icon" href="../imagenes/CURLUM.ico">
 	</head>
 
 	<?php 
@@ -16,9 +16,19 @@
 	//$idProfesor = $_SESSION['idProfesor'];
 	$username = $_SESSION['username'];
 
+	function nombre($username){
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		$sql = "SELECT * FROM profesor WHERE username = '$username'";
+		$resultado = mysqli_query($conexion, $sql);
+		$persona = mysqli_fetch_array($resultado);
+		echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
+	}
+
 	if(isset($_SESSION['username'])){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
         //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+        $idProfesor = $_SESSION['idProfesor'];
 		$sql = "SELECT * FROM profesor WHERE id='$idProfesor'";
 		$resultado = mysqli_query($conexion, $sql);
 		$profesor = mysqli_fetch_array($resultado);
@@ -78,7 +88,7 @@
 			$sql = "DELETE FROM usuario WHERE username='$username'";
 			$resultado = mysqli_query($conexion, $sql);
 
-			header('Location: administrador.php');
+			header('Location: ../administrador.php');
 		}
 		else if(isset($_POST['cancelar'])){
 			header('Location: user_profesor.php');
@@ -134,7 +144,7 @@
 			          </div>
 			          <div class="col-4 d-flex justify-content-end align-items-center">
 
-			            <a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
+			            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
 			          </div>
 			        </div>
 			      </header>
@@ -229,7 +239,7 @@
 
 			              <div class="col-md-6 mb-3">
 			                <label for="numero">Número</label>
-			                <input type="text" class="form-control" name="numero" id="numero" placeholder="" <?php echo "value='$numero'" ?>  required>
+			                <input type="number" class="form-control" name="numero" id="numero" placeholder="" <?php echo "value='$numero'" ?>  required>
 			                <div class="invalid-feedback">
 			                  Se Requiere un Número Valido.
 			                </div>
@@ -253,7 +263,7 @@
 
 			              <div class="col-md-6 mb-3">
 			                <label for="telefono">Teléfono</label>
-			                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="" <?php echo "value='$telefono'" ?>  required>
+			                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="" <?php echo "value='$telefono'" ?>  required>
 			                <div class="invalid-feedback">
 			                  Se Requiere un Teléfono Valido.
 			                </div>
@@ -284,7 +294,7 @@
 	</body>
 	<?php }
 	else{
-		header('Location: login.php');
+		header('Location: ../login.php');
 	}
 	?>
 </html>
