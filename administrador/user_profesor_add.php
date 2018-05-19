@@ -92,7 +92,7 @@
 			            <!--<a class="text-muted" href="index.php">Index</a> -->
 			          </div>
 			          <div class="col-4 text-center">
-			            <a class="blog-header-logo text-dark" href="administrador.php">CURLUM</a>
+			            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
 			          </div>
 			          <div class="col-4 d-flex justify-content-end align-items-center">
 

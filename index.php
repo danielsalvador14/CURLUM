@@ -9,6 +9,17 @@
   	<link rel="stylesheet" href="css/font-family.css">
   	<link rel="icon" href="imagenes/CURLUM.ico">
   </head>
+
+  <?php 
+  session_start();
+  if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
+    header('Location: administrador.php');
+  }
+  else if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+    header('Location: profesor.php');
+  }
+  else{
+  ?>
   	
   <body class="text-center">
 
@@ -41,4 +52,7 @@
     <script src="js/jquery.js"></script>
   	<script src="js/bootstrap.min.js"></script>
   </body>
+  <?php 
+  }
+  ?>
 </html>

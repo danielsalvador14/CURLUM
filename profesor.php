@@ -51,7 +51,7 @@
 		      	</header>
 		      	<div class="nav-scroller py-1 mb-2 bg-dark">
 		        	<nav class="nav d-flex justify-content-between">
-			          <a class="p-2 text-white p-font" href="pro_datos_personales.php">Datos Personales</a>
+			          <a class="p-2 text-white p-font" href="datos_personales/pro_datos_personales.php">Datos Personales</a>
 			          <a class="p-2 text-white p-font" href="#">Formación Académica</a>
 			          <a class="p-2 text-white p-font" href="produccion_academica/pro_produccion.php">Producción Académica</a>
 			          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>

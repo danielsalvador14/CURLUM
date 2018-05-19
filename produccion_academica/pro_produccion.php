@@ -129,7 +129,7 @@
 		            			<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a> <!-- Linea modificada -->
 		          			</div>
 		          			<div class="col-4 d-flex justify-content-end align-items-center">
-		            			<a class="btn btn-sm btn-outline-secondary p-font" href="../index.php">Cerrar Sesión</a>
+		            			<a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
 		          			</div>
 		        		</div>
 		      		</header>
@@ -178,7 +178,7 @@
 			header('Location: administrador.php');
 		}
 		else{
-			header('Location: login.php');
+			header('Location: ../login.php');
 		}
 	?>
 </html>

@@ -25,7 +25,7 @@
 		echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
 	}
 
-	if(isset($_SESSION['username'])){
+	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
         //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
         $idProfesor = $_SESSION['idProfesor'];
@@ -44,6 +44,7 @@
 		$colonia = $profesor['colonia'];
 		$ciudad = $profesor['ciudad'];
 		$telefono = $profesor['telefono'];
+		$Profe_usuario = $profesor['username'];
 
 		if(isset($_POST['guardar'])){
 			$reg = mysqli_fetch_array($resultado);
@@ -93,6 +94,20 @@
 		else if(isset($_POST['cancelar'])){
 			header('Location: user_profesor.php');
 		}
+		else if(isset($_POST['vistaProfe'])){
+			$idP = $_SESSION['idProfesor'];
+			session_destroy();
+			session_start();
+			$sql = "SELECT * FROM usuario WHERE username='$Profe_usuario'";
+        	$resultado = mysqli_query($conexion, $sql);
+        	$reg = mysqli_fetch_array($resultado); 
+			$_SESSION['nivel'] = $reg['tipo'];
+          	$_SESSION['username'] = $reg['username'];
+          	$_SESSION['user'] = $reg;
+          	$_SESSION['profesor'] = $reg['tipo'];
+          	$_SESSION['idProfesor'] = $idP;
+			header('Location ../profesor.php');
+		}
 
 	?>
 	<body class="bg-light">
@@ -105,27 +120,25 @@
 			<header class="blog-header py-3">
 		        <div class="row flex-nowrap justify-content-between align-items-center">
 		          <div class="col-4 pt-1">
-		          	<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
+		          	<a><?php echo "Administrador: ".$_SESSION['username']; ?> </a>
+		            <!--<a class="text-muted" href="index.php">Index</a> -->
 		          </div>
 		          <div class="col-4 text-center">
-		            <a class="blog-header-logo text-dark" href="#">CURLUM</a>
+		            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
 		          </div>
 		          <div class="col-4 d-flex justify-content-end align-items-center">
 
-		            <a class="btn btn-sm btn-outline-secondary" href="index.php">Cerrar Sesión</a>
+		            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
 		          </div>
 		        </div>
-		     </header>
+		    </header>
 
 		     <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
-		          <a class="p-2 text-white" href="user_profesor_data.php">Datos Personales</a>
-		          <a class="p-2 text-white" href="#">Formación Académica</a>
-		          <a class="p-2 text-white" href="#">Producción Académica</a>
-		          <a class="p-2 text-white" href="#">Carga Acádemica</a>
-		          <a class="p-2 text-white" href="#">Tutorías</a>
-		          <a class="p-2 text-white" href="#">Configuración</a>
-		        </nav>
+			          <a class="p-2 text-white" href="user_profesor.php">Profesores Registrados</a>
+			          <a class="p-2 text-white" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
+			          <a class="p-2 text-white" href="#">Modificar Usuario</a>
+			        </nav>
 		      </div>
 
 			<?php  
@@ -140,7 +153,7 @@
 			            <!--<a class="text-muted" href="index.php">Index</a> -->
 			          </div>
 			          <div class="col-4 text-center">
-			            <a class="blog-header-logo text-dark" href="administrador.php">CURLUM</a>
+			            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
 			          </div>
 			          <div class="col-4 d-flex justify-content-end align-items-center">
 
@@ -177,6 +190,12 @@
 		              <div>
 		                <h6 class="my-0">Botón "Guardar"</h6>
 		                <small class="text-muted">Actualiza los Datos con la nueva Información Ingresada.</small>
+		              </div> 
+		            </li>
+		            <li class="list-group-item d-flex justify-content-between lh-condensed">
+		              <div>
+		                <h6 class="my-0">Botón "Vista Profesor"</h6>
+		                <small class="text-muted">Entrar al sistema como el usuario seleccionado.</small>
 		              </div> 
 		            </li>
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -233,7 +252,7 @@
 			                <label for="calle">Calle</label>
 			                <input type="text" class="form-control" name="calle" id="calle" placeholder="" <?php echo "value='$calle'" ?>  required>
 			                <div class="invalid-feedback">
-			                  Se Requiere una Calle Valida.
+			                  Se Requiere una Calle Válida.
 			                </div>
 			              </div>
 
@@ -249,7 +268,7 @@
 			                <label for="colonia">Colonia</label>
 			                <input type="text" class="form-control" name="colonia" id="colonia" placeholder="" <?php echo "value='$colonia'" ?>  required>
 			                <div class="invalid-feedback">
-			                  Se Requiere una Colonia Valida.
+			                  Se Requiere una Colonia Válida.
 			                </div>
 			              </div>
 
@@ -257,7 +276,7 @@
 			                <label for="ciudad">Ciudad</label>
 			                <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="" <?php echo "value='$ciudad'" ?>  required>
 			                <div class="invalid-feedback">
-			                  Se Requiere una Ciudad Valida.
+			                  Se Requiere una Ciudad Válida.
 			                </div>
 			              </div>
 
@@ -273,6 +292,7 @@
 						<div class="col-md-12 mb-12" id="botones">
 							<tr>
 								<td><input class="btn btn-lg btn-secondary" type="submit" value="Guardar" name="guardar"></td>
+								<td><input class="btn btn-lg btn-secondary" type="submit" value="Vista Profesor" name="vistaProfe" ></td>
 								<td><input class="btn btn-lg btn-secondary" type="submit" value="Eliminar" name="eliminar" ></td>
 								<td><input class="btn btn-lg btn-secondary" type="submit" value="Cancelar" name="cancelar"></td>
 							</tr>
