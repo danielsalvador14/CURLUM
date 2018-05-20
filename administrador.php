@@ -37,7 +37,7 @@
 					<nav class="nav d-flex justify-content-between">
 					  	<a class="p-2 text-white" href="administrador/user_profesor.php">Profesores Registrados</a>
 					  	<a class="p-2 text-white" href="administrador/user_profesor_add.php">Registrar Nuevo Usuario</a>
-					  	<a class="p-2 text-white" href="#">Modificar Usuario</a>
+					  	<a class="p-2 text-white" href="administrador/administrar_usuarios.php">Modificar Usuario</a>
 					</nav>
 				</div>
 
