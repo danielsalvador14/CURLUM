@@ -28,18 +28,6 @@
 					institucion = document.getElementById("institucion").value;
 					fecha = document.getElementById("fecha_produccion").value;
 
-					/*
-					er = /^[A-Za-z0-9]+(\s[A-Za-z0-9]+)*$/;
-					if (!er.test(titulo)){
-						alert("Titulo No Válido!");
-						return;
-					}
-					if (!er.test(institucion)){
-						alert("Institución No Válida!");
-						return;
-					}
-					*/
-
 					setTimeout("location.href='pro_produccion_modify.php?id="+_id_produccion+"&titulo="+titulo+"&tipo="+tipo+"&institucion="+institucion+"&fecha="+fecha+"'", 0);
 				}
 			}
