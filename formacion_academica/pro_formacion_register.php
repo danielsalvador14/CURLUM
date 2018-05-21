@@ -32,7 +32,7 @@
 					fech_f = document.getElementById("fecha_fin").value;
 					fech_o = document.getElementById("fecha_obtencion").value;
 
-					er = /^([A-Z][a-z]*)+(\s[A-Z]+[a-z]*)*$/;
+					er = /^([A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]*)+(\s([A-ZÁÉÍÓÚÑÜ]|[a-záéíóúñü])[a-záéíóúñü]*)*$/;
 					if (!er.test(nombre)){
 						alert("Nombre No Válido!");
 						return;

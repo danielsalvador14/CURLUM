@@ -24,7 +24,7 @@
 					apellidoP = document.getElementById("apellidop").value;
 					titulo = document.getElementById("titulo").value;
 
-					er = /^([A-Z][a-z]*)+(\s([A-Z][a-z]*))*$/;
+					er = /^([A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]*)+(\s[A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]*)*$/;
 					if (!er.test(nombre)){
 						alert("Nombre No Válido!");
 						return;
