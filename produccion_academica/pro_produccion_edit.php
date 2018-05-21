@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>CURLUM - Formación Académica - Editar</title>
+		<title>CURLUM - Producción Académica - Editar</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
@@ -15,18 +15,31 @@
 			function solicitarModificacion(_id_produccion){
 				if (document.getElementById("titulo").value == ""){
 					alert("Ingrese Titulo!");
-				} 
+				}
 				else if (document.getElementById("institucion").value == ""){
 					alert("Ingrese Institucion!");
-				} 
+				}
 				else if (!document.getElementById("fecha_produccion").value){
 					alert("Ingrese Fecha!");
-				} 
+				}
 				else {
 					titulo = document.getElementById("titulo").value;
 					tipo = document.getElementById("tipo").value;
 					institucion = document.getElementById("institucion").value;
 					fecha = document.getElementById("fecha_produccion").value;
+
+					/*
+					er = /^[A-Za-z0-9]+(\s[A-Za-z0-9]+)*$/;
+					if (!er.test(titulo)){
+						alert("Titulo No Válido!");
+						return;
+					}
+					if (!er.test(institucion)){
+						alert("Institución No Válida!");
+						return;
+					}
+					*/
+
 					setTimeout("location.href='pro_produccion_modify.php?id="+_id_produccion+"&titulo="+titulo+"&tipo="+tipo+"&institucion="+institucion+"&fecha="+fecha+"'", 0);
 				}
 			}
@@ -40,35 +53,33 @@
 				if (autor.split("_")[2]) {
 					apellidoM = autor.split("_")[2];
 					setTimeout("location.href='pro_produccion_edit_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
-				} 
+				}
 				else {
 					setTimeout("location.href='pro_produccion_edit_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"'", 0);
 				}
 			}
 			function borrarAutor(numRegistro_tupla){
-				alert("Entro a Eliminar");
 				numRegistro = numRegistro_tupla.split("|")[0];
 				tupla = numRegistro_tupla.split("|")[1];
-				autor = document.getElementById("autor_"+tupla).value;alert(autor);
+				autor = document.getElementById("autor_"+tupla).value;
 				nombre = autor.split("_")[0];
 				apellidoP = autor.split("_")[1];
-				alert("Antes del IF");
 				if (autor.split("_")[2]) {
-					alert("A IF");
 					apellidoM = autor.split("_")[2];
 					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
-				} 
+				}
 				else {
-					alert("A Else");
-					apellidoM = "";
+					apellidoM = null;
 					setTimeout("location.href='pro_produccion_delete_autor.php?numregistro="+numRegistro+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
-					alert("Okey");
 				}
 			}
 			function agregarAutor(_numRegistro_titulo){
 				numRegistro = _numRegistro_titulo.split('|')[0];
 				titulo = _numRegistro_titulo.split('|')[1];
 				setTimeout("location.href='pro_produccion_register_autores.php?numregistro="+numRegistro+"&titulo="+titulo+"'", 0);
+			}
+			function cancelar(){
+				setTimeout("location.href='pro_produccion.php'", 0);
 			}
 		</script>
 	</head>
@@ -123,7 +134,7 @@
 		$sql = 'DELETE FROM produccion WHERE numRegistro = '.$_GET['id'];
 		mysqli_query($conexion, $sql);
 		header('Location: pro_produccion.php');
-	} 
+	}
 
 	elseif(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
 		if(!$_GET['id']){
@@ -155,14 +166,19 @@
             			<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a> <!-- Linea modificada -->
           			</div>
           			<div class="col-4 d-flex justify-content-end align-items-center">
-            			<a class="btn btn-sm btn-outline-secondary p-font" href="../index.php">Cerrar Sesión</a>
+            			<a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
           			</div>
         		</div>
       		</header>
 
       		<div class="nav-scroller py-1 mb-2 bg-dark">
-        		<nav class="nav d-flex justify-content-between"> <!-- Lista modificada -->
-          			<a class="p-2 text-white p-font" href="pro_produccion.php">Regresar</a>
+        		<nav class="nav d-flex justify-content-between">
+							<a class="p-2 text-white p-font" href="../datos_personales/pro_datos_personales.php">Datos Personales</a>
+							<a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
+							<a class="p-2 text-white p-font" href="pro_produccion.php">Producción Académica</a>
+							<a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+							<a class="p-2 text-white p-font" href="#">Tutorías</a>
+							<a class="p-2 text-white p-font" href="#">Configuración</a>
         		</nav>
       		</div>
 
@@ -179,8 +195,16 @@
           			<ul class="list-group mb-3">
             			<li class="list-group-item d-flex justify-content-between lh-condensed">
               				<div>
+												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Guardar"?</h6>
+                				<small class="text-muted p-font">Los cambios serán guardardos en la base de daros inmediantamente. Sea precavido con los cambios hechos.</small>
                 				<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Eliminar"?</h6>
-                				<small class="text-muted p-font">El registro será inmediantamente eliminado de la base de datos. Por lo cual, se recomienda precaución al solicitar esta acción. Para permitir eliminar el registro, primero confirme señalando la casilla de eliminación.</small>
+                				<small class="text-muted p-font">El registro será inmediantamente eliminado de la base de datos. Por lo cual, se recomienda precaución al solicitar esta acción.</small>
+												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Cancelar"?</h6>
+                				<small class="text-muted p-font">Será dirigido a la página 'Producción Académica'.</small>
+												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Modificar"?</h6>
+                				<small class="text-muted p-font">Será dirigido a la página correspondiente para editar el registro.</small>
+												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Añadir"?</h6>
+                				<small class="text-muted p-font">Será dirigido a la página donde podrá hacer un nuevo registro.</small>
               				</div>
             			</li>
       				</ul>
@@ -192,7 +216,7 @@
             			<div class="row">
               				<div class="col-md-6 mb-3">
 								<label for="username" class="p-font">Título de Producción</label>
-								<?php echo '<input type="text" class="form-control" id="titulo" value="'.$produccion['titulo'].'" required>' ?>
+								<?php echo '<input type="text" maxlength=99 class="form-control" id="titulo" value="'.$produccion['titulo'].'" required>' ?>
                 				<div class="invalid-feedback">
                   					Campo requerido.
                 				</div>
@@ -211,7 +235,7 @@
 
 							<div class="col-md-6 mb-3">
                 				<label for="username" class="p-font">Nombre de Institucion</label>
-								<?php echo '<input type="text" class="form-control" id="institucion" value="'.$produccion['institucion'].'" required>' ?>
+								<?php echo '<input type="text" maxlength=49 class="form-control" id="institucion" value="'.$produccion['institucion'].'" required>' ?>
                 				<div class="invalid-feedback">
                  					 Campo requerido.
                 				</div>
@@ -225,38 +249,39 @@
               				</div>
 
 							<div class="col-md-6 mb-3">
-                				<label for="username" class="p-font">Autores</label>
+        				<label for="username" class="p-font">Autores</label>
 								<table id="tabla-autores">
 									<?php autores($id_produccion) ?>
 									<td><button class="btn btn-lg btn-secondary btn-block btn-tabla" name="eliminar_autor" value=<?php echo '"'.$id_produccion.'|'.$produccion['titulo'].'"'; ?> onclick="agregarAutor(value)">Añadir</button></td>
 								</table>
-              				</div>
+      				</div>
 
 							<div id="botones">
 								<table>
 									<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$id_produccion.'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
 									<th><button class="btn btn-lg btn-secondary btn-block boton-eliminar" name="eliminar_produccion" value=<?php echo '"'.$id_produccion.'"'; ?>>Eliminar</button></th>
+									<th><button class="btn btn-lg btn-secondary btn-block" onclick="cancelar()">Cancelar</button></th>
 								</table>
 							</div>
-						</div>	
+						</div>
 					</form>
 				</div>
         	</div>
       	</div>
       	<footer class="blog-footer text-white">
       		<p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
-	      	<p><a href="pro_formacion.php" class="link-color">Regresar</a></p>
+	      	<p><a href="../profesor.php" class="link-color">Regresar</a></p>
 	    </footer>
-    	<script src="js/jquery.js"></script>
-    	<script src="js/bootstrap.min.js"></script>
+    	<script src="../js/jquery.js"></script>
+    	<script src="../js/bootstrap.min.js"></script>
     </body>
 	<?php
 	}
 	else if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
-		header('Location: administrador.php');
+		header('Location: ../administrador.php');
 	}
 	else{
-		header('Location: login.php');
+		header('Location: ../login.php');
 	}
 	?>
 </html>

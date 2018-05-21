@@ -5,14 +5,30 @@
 	 && isset($_GET['apellidop']) && isset($_GET['apellidom'])){
 	  	$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
 	    //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
-	  	$sql = 'UPDATE produccion_autores SET nombre_autor="'.$_GET['nombre'].'", apellidoP_autor="'.$_GET['apellidop'].'", apellidoM_autor="'.$_GET['apellidom'].'" WHERE numRegistro = '.$_GET['numregistro'].' AND nombre_autor = "'.$_GET['nombre_original'].'" AND apellidoP_autor = "'.$_GET['apellidop_original'].'" AND apellidoM_autor = "'.$_GET['apellidom_original'].'"';
+
+			if ($_GET['apellidom_original'] == "null") {
+		    if ($_GET['apellidom'] == "null") {
+		      $sql = 'UPDATE produccion_autores SET nombre_autor="'.$_GET['nombre'].'", apellidoP_autor="'.$_GET['apellidop'].'" WHERE numRegistro = '.$_GET['numregistro'].' AND nombre_autor = "'.$_GET['nombre_original'].'" AND apellidoP_autor = "'.$_GET['apellidop_original'].'" AND apellidoM_autor IS NULL';
+		    }
+				else {
+		      $sql = 'UPDATE produccion_autores SET nombre_autor="'.$_GET['nombre'].'", apellidoP_autor="'.$_GET['apellidop'].'", apellidoM_autor="'.$_GET['apellidom'].'" WHERE numRegistro = '.$_GET['numregistro'].' AND nombre_autor = "'.$_GET['nombre_original'].'" AND apellidoP_autor = "'.$_GET['apellidop_original'].'" AND apellidoM_autor IS NULL';
+		    }
+		  }
+			else {
+		    if ($_GET['apellidom'] == "null") {
+		      $sql = 'UPDATE produccion_autores SET nombre_autor="'.$_GET['nombre'].'", apellidoP_autor="'.$_GET['apellidop'].'", apellidoM_autor=NULL WHERE numRegistro = '.$_GET['numregistro'].' AND nombre_autor = "'.$_GET['nombre_original'].'" AND apellidoP_autor = "'.$_GET['apellidop_original'].'" AND apellidoM_autor = "'.$_GET['apellidom_original'].'"';
+		    }
+				else {
+		      $sql = 'UPDATE produccion_autores SET nombre_autor="'.$_GET['nombre'].'", apellidoP_autor="'.$_GET['apellidop'].'", apellidoM_autor="'.$_GET['apellidom'].'" WHERE numRegistro = '.$_GET['numregistro'].' AND nombre_autor = "'.$_GET['nombre_original'].'" AND apellidoP_autor = "'.$_GET['apellidop_original'].'" AND apellidoM_autor = "'.$_GET['apellidom_original'].'"';
+		    }
+		  }
 
 	  	mysqli_query($conexion, $sql);
 
 	  	header('Location: pro_produccion_edit.php?id='.$_GET['numregistro']);
-	} 
+	}
 	else {
-	  	header('Location: pro_produccion.php');
+	  	header('Location: ../profesor.php');
 	}
 
 ?>

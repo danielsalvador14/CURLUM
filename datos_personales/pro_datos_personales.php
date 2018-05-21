@@ -7,10 +7,11 @@
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 	</head>
 
-	<?php 
+	<?php
 	session_start();
 	function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
@@ -30,7 +31,7 @@
 
 	$idProfesor = $reg['id'];
 
-	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){ 
+	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
 	?>
 		<body>
 			<div class="container">
@@ -38,24 +39,23 @@
 		        <div class="row flex-nowrap justify-content-between align-items-center">
 		          <div class="col-4 pt-1">
 		          	<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
-		            <!--<a class="text-muted" href="index.php">Index</a> -->
 		          </div>
 		          <div class="col-4 text-center">
-		            <a class="blog-header-logo text-dark" href="../profesor.php">CURLUM</a>
+		            <a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
 		          </div>
 		          <div class="col-4 d-flex justify-content-end align-items-center">
-		            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
+		            <a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
 		          </div>
 		        </div>
 		      </header>
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
-		          <a class="p-2 text-white" href="pro_datos_personales.php">Datos Personales</a>
-		          <a class="p-2 text-white" href="#">Formación Académica</a>
-		          <a class="p-2 text-white" href="#">Producción Académica</a>
-		          <a class="p-2 text-white" href="#">Carga Acádemica</a>
-		          <a class="p-2 text-white" href="#">Tutorías</a>
-		          <a class="p-2 text-white" href="#">Configuración</a>
+		          <a class="p-2 text-white p-font">Datos Personales</a>
+		          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
+		          <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
+		          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+		          <a class="p-2 text-white p-font" href="#">Tutorías</a>
+		          <a class="p-2 text-white p-font" href="#">Configuración</a>
 		        </nav>
 		      </div>
 
@@ -63,7 +63,7 @@
 		      	<br><br><br><br>
 					<div class="container-fluid ">
 						<div class="row ">
-					      
+
 					      	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 								<?php
 									$foto = $reg['id'];
@@ -98,7 +98,7 @@
 										</form><br>
 										<form method="post">
 											<input class="btn btn-success" type="submit" name="cancelarimg" value="Cancelar">
-										</form>	
+										</form>
 									<?php
 									}
 									else{
@@ -107,14 +107,14 @@
 										<input class="btn btn-success" type="submit" name="actualizarimg" value="Cambiar">
 										<input class="btn btn-success" type="submit" name="borrarimg" value="Eliminar">
 									</form>
-									<?php 
+									<?php
 									}
 								?>
 							</div>
 
 							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
-								<table class="table table-bordered table-hover">
-									<?php 
+								<table class="table table-bordered table-hover p-font">
+									<?php
 										$sql = "SELECT * FROM profesor WHERE id='$idProfesor'";
 										$resultado = mysqli_query($conexion, $sql);
 										while($reg = mysqli_fetch_array($resultado)){
@@ -133,7 +133,7 @@
 										}//Llave del while
 									?>
 								</table>
-								<?php  
+								<?php
 									if(!isset($_POST['modificar'])){
 								?>
 										<form method="post">
@@ -151,17 +151,17 @@
 		  	</section>
 		    </div>
 
-		    <footer class="blog-footer text-white">
+		    <footer class="blog-footer text-white pos-food">
 		      <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		      <p>
-		        <a href="#">Volver al Inicio</a>
+		        <a href="../profesor.php" class="link-color">Volver al Inicio</a>
 		      </p>
 		    </footer>
 
 			<script src="js/jquery.js"></script>
 	    	<script src="js/bootstrap.min.js"></script>
 		</body>
-	<?php 
+	<?php
 	}
 	else if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
 		header('Location: ../administrador.php');

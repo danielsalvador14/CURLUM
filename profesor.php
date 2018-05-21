@@ -52,7 +52,7 @@
 		      	<div class="nav-scroller py-1 mb-2 bg-dark">
 		        	<nav class="nav d-flex justify-content-between">
 			          <a class="p-2 text-white p-font" href="datos_personales/pro_datos_personales.php">Datos Personales</a>
-			          <a class="p-2 text-white p-font" href="#">Formación Académica</a>
+			          <a class="p-2 text-white p-font" href="formacion_academica/pro_formacion.php">Formación Académica</a>
 			          <a class="p-2 text-white p-font" href="produccion_academica/pro_produccion.php">Producción Académica</a>
 			          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
 			          <a class="p-2 text-white p-font" href="#">Tutorías</a>
@@ -96,9 +96,6 @@
 
 		    <footer class="blog-footer text-white">
 		      <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
-		      <p>
-		        <a href="#">Volver al Inicio</a>
-		      </p>
 		    </footer>
 
 			<script src="js/jquery.js"></script>

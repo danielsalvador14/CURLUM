@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
-    	<link rel="stylesheet" href="../css/style-pro-produccion-autor.css">
+    <link rel="stylesheet" href="../css/style-pro-produccion-autor.css">
 		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
@@ -15,10 +15,10 @@
 			function guardarAutor(_numregistro){
 				if (!document.getElementById("nombre").value){
 					alert("Ingrese Nombre!");
-				} 
+				}
 				else if (!document.getElementById("apellidop").value){
 					alert("Ingrese Apellido!");
-				} 
+				}
 				else {
 					nombre = document.getElementById("nombre").value;
 					apellidoP = document.getElementById("apellidop").value;
@@ -26,15 +26,36 @@
 					apellidoP_o = document.getElementById("apellidop_original").value;
 					apellidoM_o = document.getElementById("apellidom_original").value;
 
+					er = /^([A-Z][a-z]*)+(\s([A-Z][a-z]*))*$/;
+					if (!er.test(nombre)){
+						alert("Nombre No Válido!");
+						return;
+					}
+					if (!er.test(apellidoP)){
+						alert("Apellido Paterno No Válido!");
+						return;
+					}
+
+					if (apellidoM_o == "") {
+						apellidoM_o = null;
+					}
+
 					if (document.getElementById("apellidom").value) {
 						apellidoM = document.getElementById("apellidom").value;
+						if (!er.test(apellidoM)){
+							alert("Apellido Materno No Válido!");
+							return;
+						}
 						setTimeout("location.href='pro_produccion_modify_autor.php?numregistro="+_numregistro+"&nombre_original="+nombre_o+"&apellidop_original="+apellidoP_o+"&apellidom_original="+apellidoM_o+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
-					} 
+					}
 					else {
-						apellidoM = "";
+						apellidoM = null;
 						setTimeout("location.href='pro_produccion_modify_autor.php?numregistro="+_numregistro+"&nombre_original="+nombre_o+"&apellidop_original="+apellidoP_o+"&apellidom_original="+apellidoM_o+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
 					}
 				}
+			}
+			function cancelar(){
+				setTimeout("location.href='pro_produccion.php'", 0);
 			}
 		</script>
 	</head>
@@ -88,14 +109,19 @@
 	            			<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a> <!-- Linea modificada -->
 	          			</div>
 	          			<div class="col-4 d-flex justify-content-end align-items-center">
-	            			<a class="btn btn-sm btn-outline-secondary p-font" href="../index.php">Cerrar Sesión</a>
+	            			<a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
 	          			</div>
 	        		</div>
 	      		</header>
 
 	      		<div class="nav-scroller py-1 mb-2 bg-dark">
 	        		<nav class="nav d-flex justify-content-between">
-	          			<a class="p-2 text-white p-font" href="pro_produccion.php">Continuar</a>
+								<a class="p-2 text-white p-font" href="../datos_personales/pro_datos_personales.php">Datos Personales</a>
+			          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
+			          <a class="p-2 text-white p-font" href="pro_produccion.php">Producción Académica</a>
+			          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+			          <a class="p-2 text-white p-font" href="#">Tutorías</a>
+			          <a class="p-2 text-white p-font" href="#">Configuración</a>
 	        		</nav>
 	      		</div>
 
@@ -124,7 +150,7 @@
 	            			<div class="row">
 	              				<div class="col-md-6 mb-3">
 	                					<label for="username" class="p-font">Nombre de autor</label>
-										<?php echo '<input type="text" class="form-control" id="nombre" value='.$_GET['nombre'].' required>' ?>
+										<?php echo '<input type="text" maxlength=29 class="form-control" id="nombre" value='.$_GET['nombre'].' required>' ?>
 	                					<div class="invalid-feedback">
 	                  						Campo requerido.
 	                					</div>
@@ -132,7 +158,7 @@
 
 								<div class="col-md-6 mb-3">
 	                				<label for="username" class="p-font">Apellido Paterno</label>
-									<?php echo '<input type="text" class="form-control" id="apellidop" value='.$_GET['apellidop'].' required>' ?>
+									<?php echo '<input type="text" maxlength=19 class="form-control" id="apellidop" value='.$_GET['apellidop'].' required>' ?>
 	                				<div class="invalid-feedback">
 	                  					Campo requerido.
 	                				</div>
@@ -142,10 +168,10 @@
 	                				<label for="username" class="p-font">Apellido Materno</label>
 									<?php
 									if ($am) {
-										echo '<input type="text" class="form-control" id="apellidom" placeholder="No requerido" value='.$apeM.'>';
-									} 
+										echo '<input type="text" maxlength=19 class="form-control" id="apellidom" placeholder="No requerido" value='.$apeM.'>';
+									}
 									else {
-										echo '<input type="text" class="form-control" id="apellidom" placeholder="No requerido">';
+										echo '<input type="text" maxlength=19 class="form-control" id="apellidom" placeholder="No requerido">';
 									}
 									?>
 	              				</div>
@@ -154,6 +180,7 @@
 									<div id="botones">
 										<table>
 											<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$_GET['numregistro'].'"'; ?> onclick="guardarAutor(value)">Guardar</button></th>
+											<th><button class="btn btn-lg btn-secondary btn-block" onclick="cancelar()">Cancelar</button></th>
 										</table>
 									</div>
 	              				</div>
@@ -166,24 +193,24 @@
 			<input id="apellidop_original" type="hidden" value=<?php echo '"'.$_GET['apellidop'].'"' ?>>
 			<?php if ($am) {
 					echo '<input id="apellidom_original" type="hidden" value="'.$apeM.'">';
-				} 
+				}
 				else {
 					echo '<input id="apellidom_original" type="hidden" value="">';
 				} ?>
 	      	<footer class="blog-footer text-white">
 		      	<p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
-		      	<p><a href="pro_formacion.php" class="link-color">Regresar</a></p>
+		      	<p><a href="../profesor.php" class="link-color">Regresar</a></p>
 		    </footer>
-	    	<script src="js/jquery.js"></script>
-	    	<script src="js/bootstrap.min.js"></script>
+	    	<script src="../js/jquery.js"></script>
+	    	<script src="../js/bootstrap.min.js"></script>
 	    </body>
 	<?php
 	}
 	else if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
-		header('Location: administrador.php');
+		header('Location: ../administrador.php');
 	}
 	else{
-		header('Location: login.php');
+		header('Location: ../login.php');
 	}
 	?>
 </html>

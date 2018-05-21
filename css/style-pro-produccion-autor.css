@@ -23,12 +23,8 @@
 
 #botones {
   position: relative;
-  top: 100%;
-  left: 115%;
-}
-
-#boton-eliminar:hover {
-  background-color: #B30000;
+  top: 150%;
+  left: 33%;
 }
 
 .cambiar-cursor:hover {
@@ -37,5 +33,5 @@
 
 footer {
   position: relative;
-  top: 5%;
+  top: 10%;
 }
