@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>PROFESORES REGISTRADOS | CURLUM</title>
+		<title>USUARIOS REGISTRADOS | CURLUM</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
@@ -14,29 +14,48 @@
 	<?php 
 	session_start();
 
+	function getNivel($nivel) {
+		if ($nivel == 1) {
+			return "Profesor";
+		}
+		else{
+			return "Súper Administrador";
+		}
+	}
+
+	function getPassword($pass){
+		$tam = strlen (  $pass );
+		$cad = "";
+		for ($i = 1; $i <= $tam; $i++) {
+		    $cad = $cad."*";
+		}
+		return $cad;
+	}
+
 	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){ 
 
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
         //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
-		$sql = "SELECT * FROM `profesor`";
+		$sql = "SELECT * FROM `usuario`";
 		$resultado = mysqli_query($conexion, $sql);
 		$reg = mysqli_fetch_array($resultado);
-		$profesores = $reg['id'];
+		$usuario = $reg['username'];
 
 		if(isset($_POST['seleccionar'])){
-			$sql = "SELECT * FROM profesor";
+			$sql = "SELECT * FROM usuario";
 			$resultado = mysqli_query($conexion, $sql);
 			while($reg = mysqli_fetch_array($resultado)){
-				if($reg['id'] == $_POST['codigo']){
-					$_SESSION['idProfesor'] = $_POST['codigo'];
-					header('Location: user_profesor_data.php');
+				if($reg['username'] == $_POST['nombre_usuario']){
+					$_SESSION['nombre_usuario'] = $_POST['nombre_usuario'];
+					header('Location: editar_usuario.php');
+					///REFERENCIA
 				}
 			}
 		}
 		else if(isset($_POST['crear'])){
 			header('Location: user_profesor_add.php');
 		}
-		$sql = "SELECT * FROM profesor";
+		$sql = "SELECT * FROM usuario";
 		$resultado = mysqli_query($conexion, $sql);
 	?>
 
@@ -64,17 +83,17 @@
 			        </nav>
 		      	</div>
 		      	<div class="py-5 text-center">
-		        	<h2>Profesores Registrados en el Sistema</h2>
+		        	<h2>Usuarios Registrados en el Sistema</h2>
 		      	</div>
 		      	<div class=" container-fluid row">
 		        	<div class="container col-xs-12 col-sm-12 col-md-8 col-lg-9">
 						<table class="table table-bordered table-hover col-md-8 order-md-1">
-							<tr><th>Código</th><th>Nombre del Profesor</th><th>Nombre de usuario</th></tr>
+							<tr><th>Nombre de Usuario</th><th>Tipo de Usuario</th><th>Contraseña</th></tr>
 							<?php 
 								while($reg = mysqli_fetch_array($resultado)){
-									$sql = "SELECT * FROM profesor";
+									$sql = "SELECT * FROM usuario";
 									$resultado_p = mysqli_query($conexion, $sql);
-									echo "<tr><td>".$reg['id']."</td><td>".$reg['nombre']." ".$reg['apellidoP']." ".$reg['apellidoM']."</td><td>".$reg['username']."</td></tr>";
+									echo "<tr><td>".$reg['username']."</td><td>".getNivel($reg['tipo'])."</td><td>".getPassword($reg['contrasena'])."</td></tr>";
 								}//Llave del while
 							?>
 						</table>
@@ -84,9 +103,9 @@
 							<input class="btn btn-lg btn-btn-secondary btn-block" type="submit" name="crear" value="Agregar"><br><br><br><br>
 						</form>
 						<form method="post">
-							<input class="form" type="number" name="codigo" required>
+							<input class="form" type="text" name="nombre_usuario" required>
 							<input class="btn btn-lg btn-btn-secondary" type="submit" name="seleccionar" value="Buscar">
-							<p class="text">Seleccione un código para operar con ese Profesor</p>
+							<p class="text">Seleccione un nombre de usuario para operar con ese usuario</p>
 						</form>
 					</div>
 		      	</div>  

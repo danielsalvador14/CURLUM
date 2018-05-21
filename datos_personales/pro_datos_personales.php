@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>DATOS PERSONALES</title>
+		<title>DATOS PERSONALES | CURLUM</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
@@ -13,6 +13,7 @@
 
 	<?php
 	session_start();
+
 	function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
 		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
@@ -44,10 +45,11 @@
 		            <a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
 		          </div>
 		          <div class="col-4 d-flex justify-content-end align-items-center">
-		            <a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
+
+		            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
 		          </div>
 		        </div>
-		      </header>
+		    </header>
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
 		          <a class="p-2 text-white p-font">Datos Personales</a>
@@ -142,7 +144,7 @@
 								<?php
 									}
 									else{
-										header('Location: user_profesor_data.php');
+										header('Location: profesor_data.php');
 									}
 								?>
 					      	</div>

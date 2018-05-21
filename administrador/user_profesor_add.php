@@ -16,9 +16,10 @@
 					$("#codigoP").show();
 					$("#botones").show();
 				}
-				else if(nivel=="Súper Administrador"){
+				else if(nivel == "Súper Administrador"){
 					$("#codigoP").hide();
 					$("#botones").show();
+					$("#codigoP :input").prop('required',null);
 				}
 				else{
 					$("#codigoP").hide();
@@ -31,7 +32,7 @@
 	<?php 
 	session_start();
 
-	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){ 
+	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
 
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
         //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
@@ -89,7 +90,6 @@
 			        <div class="row flex-nowrap justify-content-between align-items-center">
 			          <div class="col-4 pt-1">
 			          	<a><?php echo "Administrador: ".$_SESSION['username']; ?> </a>
-			            <!--<a class="text-muted" href="index.php">Index</a> -->
 			          </div>
 			          <div class="col-4 text-center">
 			            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
@@ -105,7 +105,7 @@
 			        <nav class="nav d-flex justify-content-between">
 			          <a class="p-2 text-white" href="user_profesor.php">Profesores Registrados</a>
 			          <a class="p-2 text-white" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
-			          <a class="p-2 text-white" href="#">Modificar Usuario</a>
+			          <a class="p-2 text-white" href="administrar_usuarios.php">Modificar Usuario</a>
 			        </nav>
 			    </div>
 		      	<div class="py-5 text-center">
@@ -183,9 +183,13 @@
 		        	<a href="user_profesor.php">Regresar</a>
 		      	</p>
 		    </footer>
-		    <script src="js/jquery.js"></script>
-		    <script src="js/bootstrap.min.js"></script>
+		    <script src="../js/jquery.js"></script>
+		    <script src="../js/bootstrap.min.js"></script>
 	 	</body>
 
-	<?php }  ?>
+	<?php }
+	else{
+		header('Location: ../login.php');
+	}
+	?>
 </html>
