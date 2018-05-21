@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="css/font-family.css">
   	<link rel="icon" href="imagenes/CURLUM.ico">
   </head>
-	
+
   <body class="text-center">
 
-    <?php 
+    <?php
       //Inicio de secion
       session_start();
       //Conexion a BD
@@ -34,7 +34,7 @@
         //Consulta a la base de datos
         $sql = "SELECT * FROM usuario WHERE username='$usuario' AND contrasena='$pwd'";
         $resultado = mysqli_query($conexion, $sql);
-        $reg = mysqli_fetch_array($resultado); 
+        $reg = mysqli_fetch_array($resultado);
 
         //Si la consulta coincide, cargará la Página correspondiente
         // 1 Para Profesor
@@ -62,13 +62,13 @@
 
         }
         else{
-          echo '<script language="JavaScript"> alert("Datos Incorrectos"); </script>'; 
+          echo '<script language="JavaScript"> alert("Datos Incorrectos"); </script>';
         }
       }
     ?>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <form class="form-signin" method="post" >
-        <h1 class="h1-font">CURLUM</h1>
+        <h1 class="h-font">CURLUM</h1>
         <label for="inputUsuario" class="sr-only">Nombre de Usuario</label>
         <input type="text" id="inputUsuario" class="form-control" name="username" placeholder="Nombre de Usuario" required autofocus>
         <label for="inputPassword" class="sr-only">Contraseña</label>
@@ -76,7 +76,7 @@
 
         <button class="btn btn-lg btn-secondary btn-block" name="Buscar" type="submit">Iniciar Sesión</button>
         <p class="mt-5 mb-3 text-muted"> <a href="index.php"> Regresar</a></p>
-        
+
       </form>
       <footer class="blog-footer text-white">
           <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>

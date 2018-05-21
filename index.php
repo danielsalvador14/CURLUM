@@ -10,7 +10,7 @@
   	<link rel="icon" href="imagenes/CURLUM.ico">
   </head>
 
-  <?php 
+  <?php
   session_start();
   if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
     header('Location: administrador.php');
@@ -20,13 +20,13 @@
   }
   else{
   ?>
-  	
+
   <body class="text-center">
 
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
           <div class="inner">
-            <h3 class="masthead-brand">CURLUM</h3>
+            <h3 class="masthead-brand h-font">CURLUM</h3>
             <nav class="nav nav-masthead justify-content-center">
               <a class="nav-link active" href="login.php">Inicia Sesión</a>
               <a class="nav-link" href="#">Contactanos</a>
@@ -36,8 +36,8 @@
 
         <main role="main" class="inner cover">
           <img src="imagenes/logo.png" alt="logo" width="50%">
-          <h1 class="cover-heading h1-font">CURLUM</h1>
-          <p class="lead">Es la solución integral para cualquier profesor que desee generar su Curriculum Vitae en base a su formación y producción académica.</p>
+          <h1 class="cover-heading h-font">CURLUM</h1>
+          <p class="lead p-font">Es la solución integral para cualquier profesor que desee generar su Curriculum Vitae en base a su formación y producción académica.</p>
           <p class="lead">
             <a href="login.php" class="btn btn-lg btn-secondary">Inicia Sesión</a>
           </p>
@@ -52,7 +52,7 @@
     <script src="js/jquery.js"></script>
   	<script src="js/bootstrap.min.js"></script>
   </body>
-  <?php 
+  <?php
   }
   ?>
 </html>

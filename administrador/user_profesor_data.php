@@ -8,10 +8,11 @@
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
 		<link rel="stylesheet" href="../css/style-formulario.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 	</head>
 
-	<?php 
+	<?php
 	session_start();
 	$username = $_SESSION['username'];
 
@@ -97,7 +98,7 @@
 			session_start();
 			$sql = "SELECT * FROM usuario WHERE username='$Profe_usuario'";
         	$resultado = mysqli_query($conexion, $sql);
-        	$reg = mysqli_fetch_array($resultado); 
+        	$reg = mysqli_fetch_array($resultado);
 			$_SESSION['nivel'] = $reg['tipo'];
           	$_SESSION['username'] = $reg['username'];
           	$_SESSION['user'] = $reg;
@@ -113,12 +114,11 @@
 			<div class="container">
 		      <header class="blog-header py-3">
 		        <div class="row flex-nowrap justify-content-between align-items-center">
-		          <div class="col-4 pt-1">
+		          <div class="col-4 pt-1 p-font">
 		          	<a><?php echo "Administrador: ".$_SESSION['username']; ?> </a>
-		            <!--<a class="text-muted" href="index.php">Index</a> -->
 		          </div>
 		          <div class="col-4 text-center">
-		            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
+		            <a class="blog-header-logo text-dark h-font" href="../administrador.php">CURLUM</a>
 		          </div>
 		          <div class="col-4 d-flex justify-content-end align-items-center">
 
@@ -129,57 +129,57 @@
 
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
-		          <a class="p-2 text-white" href="user_profesor.php">Profesores Registrados</a>
-		          <a class="p-2 text-white" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
-		          <a class="p-2 text-white" href="administrar_usuarios.php">Modificar Usuario</a>
+		          <a class="p-2 text-white p-font" href="user_profesor.php">Profesores Registrados</a>
+		          <a class="p-2 text-white p-font" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
+		          <a class="p-2 text-white p-font" href="administrar_usuarios.php">Modificar Usuario</a>
 		        </nav>
 		      </div>
 
 		    <div class="py-5 text-center">
-		        <h2>Modifique los valores que desea Corregir</h2>
+		        <h2 class="h-font">Modifique los valores que desea Corregir</h2>
 		    </div>
 
 			<div class="row">
 		        <div class="col-md-4 order-md-2 mb-4">
-		          <h4 class="d-flex justify-content-between align-items-center mb-3">
+		          <h4 class="d-flex justify-content-between align-items-center mb-3 h-font">
 		            <span class="text-muted">Información Adicional</span>
 		            <span class="badge badge-secondary badge-pill">!</span>
 		          </h4>
 		          <ul class="list-group mb-3">
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
 		              <div>
-		                <h6 class="my-0">Botón "Guardar"</h6>
-		                <small class="text-muted">Actualiza los Datos con la nueva Información Ingresada.</small>
-		              </div> 
-		            </li>
-		            <li class="list-group-item d-flex justify-content-between lh-condensed">
-		              <div>
-		                <h6 class="my-0">Botón "Vista Profesor"</h6>
-		                <small class="text-muted">Entrar al sistema como el usuario seleccionado.</small>
-		              </div> 
-		            </li>
-		            <li class="list-group-item d-flex justify-content-between lh-condensed">
-		              <div>
-		                <h6 class="my-0">Botón "Eliminar"</h6>
-		                <small class="text-muted">Elimina del Sistema los datos almacenados del Profesor, y la cuenta de Usuario ligada al mismo.</small>
+		                <h6 class="my-0 h-font">Botón "Guardar"</h6>
+		                <small class="text-muted p-font">Actualiza los Datos con la nueva Información Ingresada.</small>
 		              </div>
 		            </li>
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
 		              <div>
-		                <h6 class="my-0">Botón "Cancelar"</h6>
-		                <small class="text-muted">Regresa a la Página anterior sin realizar ningún cambio.</small>
+		                <h6 class="my-0 h-font">Botón "Vista Profesor"</h6>
+		                <small class="text-muted p-font">Entrar al sistema como el usuario seleccionado.</small>
+		              </div>
+		            </li>
+		            <li class="list-group-item d-flex justify-content-between lh-condensed">
+		              <div>
+		                <h6 class="my-0 h-font">Botón "Eliminar"</h6>
+		                <small class="text-muted p-font">Elimina del Sistema los datos almacenados del Profesor, y la cuenta de Usuario ligada al mismo.</small>
+		              </div>
+		            </li>
+		            <li class="list-group-item d-flex justify-content-between lh-condensed">
+		              <div>
+		                <h6 class="my-0 h-font">Botón "Cancelar"</h6>
+		                <small class="text-muted p-font">Regresa a la Página anterior sin realizar ningún cambio.</small>
 		              </div>
 		            </li>
 		          </ul>
 
 		        </div>
-	        
+
 		        <div class="col-md-8 order-md-1">
-		          <h4 class="mb-3">Datos Actuales</h4>
+		          <h4 class="mb-3 h-font">Datos Actuales</h4>
 		          <form method="post">
 			            <div class="row">
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="nombre">Nombre</label>
 			                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" <?php echo "value='$nombre'" ?>  >
 			                <div class="invalid-feedback">
@@ -187,7 +187,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="apeP">Apellido Paterno</label>
 			                <input type="text" class="form-control" name="apellidoP" id="apellidoP" placeholder="" <?php echo "value='$apeP'" ?>  >
 			                <div class="invalid-feedback">
@@ -195,12 +195,12 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="apeM">Apellido Materno</label>
 			                <input type="text" class="form-control" name="apellidoM" id="apellidoM" placeholder="" <?php echo "value='$apeM'" ?> >
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="email">Correo Electrónico</label>
 			                <input type="email" class="form-control" name="email" id="email" placeholder="" <?php echo "value='$email'" ?>  >
 			                <div class="invalid-feedback">
@@ -208,7 +208,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="calle">Calle</label>
 			                <input type="text" class="form-control" name="calle" id="calle" placeholder="" <?php echo "value='$calle'" ?>  >
 			                <div class="invalid-feedback">
@@ -216,7 +216,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="numero">Número</label>
 			                <input type="number" class="form-control" name="numero" id="numero" placeholder="" <?php echo "value='$numero'" ?>  >
 			                <div class="invalid-feedback">
@@ -224,7 +224,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="colonia">Colonia</label>
 			                <input type="text" class="form-control" name="colonia" id="colonia" placeholder="" <?php echo "value='$colonia'" ?>  >
 			                <div class="invalid-feedback">
@@ -232,7 +232,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="ciudad">Ciudad</label>
 			                <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="" <?php echo "value='$ciudad'" ?>  >
 			                <div class="invalid-feedback">
@@ -240,7 +240,7 @@
 			                </div>
 			              </div>
 
-			              <div class="col-md-6 mb-3">
+			              <div class="col-md-6 mb-3 p-font">
 			                <label for="telefono">Teléfono</label>
 			                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="" <?php echo "value='$telefono'" ?>  >
 			                <div class="invalid-feedback">
@@ -265,7 +265,7 @@
 		<footer class="blog-footer text-white">
 		  <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		  <p>
-		    <a href="#">Volver al Inicio</a>
+		    <a href="../administrador.php" class="link-color">Volver al Inicio</a>
 		  </p>
 		</footer>
 

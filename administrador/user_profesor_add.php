@@ -8,9 +8,10 @@
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
 		<link rel="stylesheet" href="../css/style-formulario.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
-		<script type="text/javascript">	
+		<script type="text/javascript">
 			function mostrar(nivel) {
 				if (nivel == "Profesor") {
 					$("#codigoP").show();
@@ -29,7 +30,7 @@
 		</script>
 	</head>
 
-	<?php 
+	<?php
 	session_start();
 
 	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
@@ -79,7 +80,7 @@
 			}
 
 			else{
-				echo '<script language="JavaScript"> alert("El Username ya esta Registrado"); </script>'; 
+				echo '<script language="JavaScript"> alert("El Username ya esta Registrado"); </script>';
 			}
 		}
 	?>
@@ -88,11 +89,11 @@
 		    <div class="container">
 		    	<header class="blog-header py-3">
 			        <div class="row flex-nowrap justify-content-between align-items-center">
-			          <div class="col-4 pt-1">
+			          <div class="col-4 pt-1 p-font">
 			          	<a><?php echo "Administrador: ".$_SESSION['username']; ?> </a>
 			          </div>
 			          <div class="col-4 text-center">
-			            <a class="blog-header-logo text-dark" href="../administrador.php">CURLUM</a>
+			            <a class="blog-header-logo text-dark h-font" href="../administrador.php">CURLUM</a>
 			          </div>
 			          <div class="col-4 d-flex justify-content-end align-items-center">
 
@@ -103,35 +104,35 @@
 
 			    <div class="nav-scroller py-1 mb-2 bg-dark">
 			        <nav class="nav d-flex justify-content-between">
-			          <a class="p-2 text-white" href="user_profesor.php">Profesores Registrados</a>
-			          <a class="p-2 text-white" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
-			          <a class="p-2 text-white" href="administrar_usuarios.php">Modificar Usuario</a>
+			          <a class="p-2 text-white p-font" href="user_profesor.php">Profesores Registrados</a>
+			          <a class="p-2 text-white p-font" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
+			          <a class="p-2 text-white p-font" href="administrar_usuarios.php">Modificar Usuario</a>
 			        </nav>
 			    </div>
 		      	<div class="py-5 text-center">
-		        	<h2>Ingrese los Datos de Usuario del Nuevo Profesor</h2>
+		        	<h2 class="h-font">Ingrese los Datos de Usuario del Nuevo Profesor</h2>
 		      	</div>
 		      	<div class="row">
 		        	<div class="col-md-4 order-md-2 mb-4">
-		          		<h4 class="d-flex justify-content-between align-items-center mb-3">
+		          		<h4 class="d-flex justify-content-between align-items-center mb-3 h-font">
 		            		<span class="text-muted">Información Adicional</span>
 		            		<span class="badge badge-secondary badge-pill">!</span>
 		          		</h4>
 		          		<ul class="list-group mb-3">
 		            		<li class="list-group-item d-flex justify-content-between lh-condensed">
 		              			<div>
-		                			<h6 class="my-0">¿Que pasará cuando se presione sobre "Guardar"?</h6>
-		                			<small class="text-muted">Se registrará al nuevo Usuario en el Sistema, las nuevas credenciales servirán para que el Profesor pueda registrar sus datos en el sistema y participar de la experiencia CURLUM</small>
+		                			<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Guardar"?</h6>
+		                			<small class="text-muted p-font">Se registrará al nuevo Usuario en el Sistema, las nuevas credenciales servirán para que el Profesor pueda registrar sus datos en el sistema y participar de la experiencia CURLUM</small>
 		              			</div>
 		            		</li>
 		          		</ul>
 		        	</div>
-		        
+
 		        	<div class="col-md-8 order-md-1">
-		          		<h4 class="mb-3">Datos del Nuevo Usuario</h4>
+		          		<h4 class="mb-3 h-font">Datos del Nuevo Usuario</h4>
 	          			<form method="post" class="needs-validation">
             				<div class="row">
-         					 	<div class="col-md-6 mb-3">
+         					 	<div class="col-md-6 mb-3 p-font">
            						 	<label for="username">Nombre de Usuario</label>
         						 	<input type="text" class="form-control" name="username" id="username" placeholder="" value="" required>
             					 	<div class="invalid-feedback">
@@ -139,7 +140,7 @@
         						 	</div>
           						</div>
 
-              					<div class="col-md-6 mb-3">
+              					<div class="col-md-6 mb-3 p-font">
                 					<label for="password">Contraseña</label>
                						<input type="password" class="form-control" name="password" id="password" placeholder="" value="" required>
                 					<div class="invalid-feedback" style="width: 100%;">
@@ -147,7 +148,7 @@
                 					</div>
               					</div>
 
-              					<div class="col-md-6 mb-3">
+              					<div class="col-md-6 mb-3 p-font">
                 					<label for="Cnivel">Nivel de Usuario</label>
 	                				<select class="custom-select d-block w-100" name="Cnivel" id="Cnivel" onChange="mostrar(this.value);" required>
 	                  					<option value="">Elija un Nivel</option>
@@ -159,7 +160,7 @@
                 					</div>
               					</div>
 
-              					<div class="col-md-6 mb-3" id="codigoP" style="display: none;">
+              					<div class="col-md-6 mb-3 p-font" id="codigoP" style="display: none;">
 	             					<label for="idProfesor">Código del Profesor</label>
 	                				<input type="number" class="form-control" id="idProfesor" name="idProfesor" placeholder="" value="" required>
 	                				<div class="invalid-feedback">
@@ -180,7 +181,7 @@
 	      	<footer class="blog-footer text-white">
 		      	<p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		      	<p>
-		        	<a href="user_profesor.php">Regresar</a>
+		        	<a href="../administrador.php" class="link-color">Regresar</a>
 		      	</p>
 		    </footer>
 		    <script src="../js/jquery.js"></script>

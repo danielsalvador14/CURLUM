@@ -8,10 +8,11 @@
 		<link rel="stylesheet" href="../css/style-fuentes.css">
 		<link rel="stylesheet" href="../css/style-blog.css">
 		<link rel="stylesheet" href="../css/style-formulario.css">
+		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 	</head>
 
-	<?php 
+	<?php
 	session_start();
 	$nombre_usuario = $_SESSION['nombre_usuario'];
 
@@ -55,7 +56,7 @@
 					}
 				}
 				if( $nivel == 1 ){
-					
+
 					if($Repetido == 1 ){
 						$Nnombre_usuario = $_POST['Pusername'];
 						$Ncontrasena = $_POST['Pcontrasena'];
@@ -69,7 +70,7 @@
 						$resultado = mysqli_query($conexion, $sql);
 					}
 					else{
-						echo '<script language="JavaScript"> alert("El Nombre de Usuario esta en Uso"); </script>'; 
+						echo '<script language="JavaScript"> alert("El Nombre de Usuario esta en Uso"); </script>';
 					}
 				}
 				else{
@@ -79,11 +80,11 @@
 						$resultado = mysqli_query($conexion, $sql);
 					}
 					else{
-						echo '<script language="JavaScript"> alert("El Nombre de Usuario esta en Uso"); </script>'; 
+						echo '<script language="JavaScript"> alert("El Nombre de Usuario esta en Uso"); </script>';
 					}
 				}
 			}
-			echo '<script language="JavaScript">				
+			echo '<script language="JavaScript">
 				  window.location.href="administrar_usuarios.php";
 				  </script>';
 		}//llave if guardar
@@ -95,7 +96,7 @@
 			$sql = "DELETE FROM usuario WHERE username='$nombre_usuario'";
 			$resultado = mysqli_query($conexion, $sql);
 
-			echo '<script language="JavaScript">				
+			echo '<script language="JavaScript">
 				  window.location.href="administrar_usuarios.php";
 				  </script>';
 		}
@@ -104,7 +105,7 @@
 		}
 
 	?>
-	
+
 
 	<body class="bg-light">
 
@@ -149,7 +150,7 @@
 		              <div>
 		                <h6 class="my-0">Botón "Guardar"</h6>
 		                <small class="text-muted">Actualiza los Datos con la nueva Información Ingresada.</small>
-		              </div> 
+		              </div>
 		            </li>
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
 		              <div>
@@ -166,7 +167,7 @@
 		          </ul>
 
 		        </div>
-	        
+
 		        <div class="col-md-8 order-md-1">
 		          <h4 class="mb-3">Datos Actuales</h4>
 		          <form method="post">
@@ -192,7 +193,7 @@
 						<div class="col-md-12 mb-12" id="botones">
 							<tr>
 								<td><input class="btn btn-lg btn-secondary" type="submit" value="Guardar" name="guardar"></td>
-								<td><input class="btn btn-lg btn-secondary" type="submit" value="Eliminar" name="eliminar" ></td>
+								<td><input class="btn btn-lg btn-secondary boton-eliminar" type="submit" value="Eliminar" name="eliminar" ></td>
 								<td><input class="btn btn-lg btn-secondary" type="submit" value="Cancelar" name="cancelar"></td>
 							</tr>
 						</div>
@@ -204,7 +205,7 @@
 		<footer class="blog-footer text-white">
 		  <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		  <p>
-		    <a href="#">Volver al Inicio</a>
+		    <a href="../administrador.php" class="link-color">Volver al Inicio</a>
 		  </p>
 		</footer>
 

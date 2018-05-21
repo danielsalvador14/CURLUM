@@ -7,13 +7,14 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style-fuentes.css">
 		<link rel="stylesheet" href="css/style-blog.css">
+		<link rel="stylesheet" href="css/font-family.css">
 		<link rel="icon" href="imagenes/CURLUM.ico">
 	</head>
 
-	<?php 
+	<?php
 	session_start();
 
-	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){ 
+	if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
 	?>
 
 		<body>
@@ -22,10 +23,9 @@
 					<div class="row flex-nowrap justify-content-between align-items-center">
 						<div class="col-4 pt-1">
 							<a><?php echo "Administrador: ".$_SESSION['username']; ?> </a>
-						<!--<a class="text-muted" href="index.php">Index</a> -->
 						</div>
 						<div class="col-4 text-center">
-							<a class="blog-header-logo text-dark" href="administrador.php">CURLUM</a>
+							<a class="blog-header-logo text-dark h-font" href="administrador.php">CURLUM</a>
 						</div>
 					  	<div class="col-4 d-flex justify-content-end align-items-center">
 					    	<a class="btn btn-sm btn-outline-secondary" href="logout.php">Cerrar Sesión</a>
@@ -35,16 +35,16 @@
 
 				<div class="nav-scroller py-1 mb-2 bg-dark">
 					<nav class="nav d-flex justify-content-between">
-					  	<a class="p-2 text-white" href="administrador/user_profesor.php">Profesores Registrados</a>
-					  	<a class="p-2 text-white" href="administrador/user_profesor_add.php">Registrar Nuevo Usuario</a>
-					  	<a class="p-2 text-white" href="administrador/administrar_usuarios.php">Modificar Usuario</a>
+					  	<a class="p-2 text-white p-font" href="administrador/user_profesor.php">Profesores Registrados</a>
+					  	<a class="p-2 text-white p-font" href="administrador/user_profesor_add.php">Registrar Nuevo Usuario</a>
+					  	<a class="p-2 text-white p-font" href="administrador/administrar_usuarios.php">Modificar Usuario</a>
 					</nav>
 				</div>
 
 				<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
 					<div class="col-md-6 px-0">
-						<h1 class="display-4 font-italic">CURLUM - Súper Administrador</h1>
-						<p class="lead my-3">Un Súper administrador tiene las herramientas necesarias para gestionar a los usuarios del sistema CURLUM.</p>
+						<h1 class="display-4 font-italic h-font">CURLUM - Súper Administrador</h1>
+						<p class="lead my-3 p-font">Un Súper administrador tiene las herramientas necesarias para gestionar a los usuarios del sistema CURLUM.</p>
 					</div>
 				</div>
 
@@ -52,19 +52,17 @@
 					<div class="col-md-6">
 				  		<div class="card flex-md-row mb-4 box-shadow h-md-250">
 			    			<div class="card-body d-flex flex-column align-items-start">
-				      			<h3 class="mb-0"> <a class="text-dark">Un Súper Administrador puede:</a></h3>
-				      			<p class="card-text mb-auto"> <ul> <li>Agregar nuevos usuarios al sistema.</li><li>Modificarlos usuarios existentes.</li><li>Eliminarlos usuarios.</li> </ul> </p>
+				      			<h3 class="mb-0"> <a class="text-dark h-font">Un Súper Administrador puede:</a></h3>
+				      			<p class="card-text mb-auto p-font"> <ul> <li>Agregar nuevos usuarios al sistema.</li><li>Modificarlos usuarios existentes.</li><li>Eliminarlos usuarios.</li> </ul> </p>
 				    		</div>
-			    			<!-- <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap"> -->
 				  		</div>
 					</div>
 					<div class="col-md-6">
 				  		<div class="card flex-md-row mb-4 box-shadow h-md-250">
 				   			<div class="card-body d-flex flex-column align-items-start">
-				      			<h3 class="mb-0"> <a class="text-dark">Características:</a></h3>
-				      			<p class="card-text mb-auto"> <ul> <li>Encargado de sistema.</li><li>Acceso total.</li> </ul> </p>
+				      			<h3 class="mb-0"> <a class="text-dark h-font">Características:</a></h3>
+				      			<p class="card-text mb-auto p-font"> <ul> <li>Encargado de sistema.</li><li>Acceso total.</li> </ul> </p>
 				    		</div>
-				    		<!--<img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap"> -->
 				  		</div>
 					</div>
 				</div>
@@ -72,14 +70,14 @@
 		    <footer class="blog-footer text-white">
 		      	<p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		      	<p>
-		        	<a href="#">Volver al Inicio</a>
+		        	<a href="" class="link-color">Volver al Inicio</a>
 		      	</p>
 		    </footer>
 
 			<script src="js/jquery.js"></script>
 	    	<script src="js/bootstrap.min.js"></script>
 		</body>
-	<?php 
+	<?php
 	}
 	else{
 		header('Location: login.php');
