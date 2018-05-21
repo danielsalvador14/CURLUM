@@ -14,6 +14,8 @@
 
 	<?php
 	session_start();
+	$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+    //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
 
 	function nombre($username){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
