@@ -36,24 +36,24 @@
 		<body>
 			<div class="container">
     		<header class="blog-header py-3">
-        	<div class="row flex-nowrap justify-content-between align-items-center">
-        		<div class="col-4 pt-1">
-        			<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
-        		</div>
-        		<div class="col-4 text-center">
-          		<a class="blog-header-logo text-dark h-font" href="#">CURLUM</a>
-        		</div>
-        		<div class="col-4 d-flex justify-content-end align-items-center">
-          		<a class="btn btn-sm btn-outline-secondary" href="logout.php">Cerrar Sesión</a>
-        		</div>
-        	</div>
-      	</header>
+	        	<div class="row flex-nowrap justify-content-between align-items-center">
+	        		<div class="col-4 pt-1">
+	        			<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
+	        		</div>
+	        		<div class="col-4 text-center">
+	          		<a class="blog-header-logo text-dark h-font" href="#">CURLUM</a>
+	        		</div>
+	        		<div class="col-4 d-flex justify-content-end align-items-center">
+	          		<a class="btn btn-sm btn-outline-secondary" href="logout.php">Cerrar Sesión</a>
+	        		</div>
+	        	</div>
+      		</header>
       	<div class="nav-scroller py-1 mb-2 bg-dark">
         	<nav class="nav d-flex justify-content-between">
 	          <a class="p-2 text-white p-font" href="datos_personales/pro_datos_personales.php">Datos Personales</a>
 	          <a class="p-2 text-white p-font" href="formacion_academica/pro_formacion.php">Formación Académica</a>
 	          <a class="p-2 text-white p-font" href="produccion_academica/pro_produccion.php">Producción Académica</a>
-	          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+	          <a class="p-2 text-white p-font" href="carga_academica/carga_academica.php">Carga Acádemica</a>
 	          <a class="p-2 text-white p-font" href="tutoria/pro_tutoria.php">Tutorías</a>
 	          <a class="p-2 text-white p-font" href="#">Configuración</a>
         	</nav>
