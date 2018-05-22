@@ -1,3 +1,10 @@
+<?php
+
+header("Content-type: application/vnd.ms-word");
+header("Content-Disposition: attachment; filename=Curriculum.doc");
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -281,29 +288,8 @@
     	  	<div class="col-4 pt-1">
       			<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
     	  	</div>
-      		<div class="col-4 text-center">
-     			 	<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
-      		</div>
-      		<div class="col-4 d-flex justify-content-end align-items-center">
-						<a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
-      		</div>
       	</div>
     	</header>
-      <div class="nav-scroller py-1 mb-2 bg-dark">
-        <nav class="nav d-flex justify-content-between">
-          <a class="p-2 text-white p-font" href="pro_datos_personales.php">  Datos Personales</a>
-          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
-          <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
-          <a class="p-2 text-white p-font" href="../carga_academica/carga_academica.php">Carga Acádemica</a>
-          <a class="p-2 text-white p-font" href="#">Tutorías</a>
-          <a class="p-2 text-white p-font" href="configuracion.php">Configuración</a>
-        </nav>
-      </div>
-      <div>
-      	<a href="javascript:pruebaDivAPdf()" class="button">Pasar a PDF</a>
-      	<br>
-				<a href="toword.php">Pasar a Word</a>
-      </div>
 
       <div class="jumbotron text-white rounded bg-dark" id="imprimir">
       	<br><br><br><br>
@@ -435,13 +421,10 @@
   	<script src="../js/bootstrap.min.js"></script>
   	<script src="../js/jspdf.min"></script>
 	</body>
-<?php
-	}
-	else if(isset($_SESSION['username']) && isset($_SESSION['administrador'])){
-		header('Location: ../administrador.php');
-	}
-	else{
-		header('Location: ../login.php');
-	}
-	?>
+  <?php
+}
+  ?>
 </html>
+<?php
+  header('Location: ../profesor.php');
+?>
