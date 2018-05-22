@@ -54,12 +54,18 @@
 		}
 		function autores($autores){
 			echo '<ul id="lista-autores" class="lista-grado">';
+			$cont = 0;
 			while ($autor = mysqli_fetch_array($autores)) {
 				echo "<li>".$autor['nombre_autor']." ".$autor['apellidoP_autor']." ";
 				if ($autor['apellidoM_autor']) {
 					echo $autor['apellidoM_autor'];
 				}
 				echo "</li>";
+				$cont += 1;
+				if ($cont == 3) {
+					echo "<li>...</li>";
+					break;
+				}
 			}
 			echo "</ul>";
 		}
@@ -81,9 +87,10 @@
 								<h3 class="mb-0 h-font">
 									<a class="text-dark">'.$produccion['titulo'].'</a>
 								</h3>
-	              				<p class="text-dark h-font"><span class="p-font">Tipo: </span>'.getTipo($produccion['tipo'])['nombre'].'</p>
+        				<p class="text-dark h-font"><span class="p-font">Tipo: </span>'.getTipo($produccion['tipo'])['nombre'].'</p>
+								<p id = "nregistro" class="text-dark h-font"><span class="p-font">N. Registro: </span>'.$produccion['numRegistro'].'</p>
 								<p id="institucion" class="text-dark h-font"><span class="p-font">Institución: </span>'.$produccion['institucion'].'</p>
-								<p id="fecha" class="text-dark h-font"><span class="p-font">Fecha de ~lanzado~: </span>'.$produccion['fecha'].'</p>
+								<p id="fecha" class="text-dark h-font"><span class="p-font">Fecha de Lanzamiento: </span>'.$produccion['fecha'].'</p>
 								<p id="autores" class="text-dark h-font"><span class="p-font">Autores:</p>
 								<div class="boton-editar">
 									<button class="btn btn-lg btn-secondary btn-block" name="editar" onclick="editarProduccion('.$produccion['numRegistro'].')">Editar</button>

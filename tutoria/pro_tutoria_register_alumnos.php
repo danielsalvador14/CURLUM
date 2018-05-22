@@ -12,7 +12,7 @@
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 
 		<script type="text/javascript">
-			function guardarAutor(_numregistro){
+			function guardarAlumno(_id_tutoria){
 				if (!document.getElementById("nombre").value){
 					alert("Ingrese Nombre!");
 				}
@@ -22,7 +22,6 @@
 				else {
 					nombre = document.getElementById("nombre").value;
 					apellidoP = document.getElementById("apellidop").value;
-					titulo = document.getElementById("titulo").value;
 
 					er = /^([A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]*)+(\s[A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]*)*$/;
 					if (!er.test(nombre)){
@@ -33,22 +32,21 @@
 						alert("Apellido Paterno No Válido!");
 						return;
 					}
-
 					if (document.getElementById("apellidom").value) {
 						apellidoM = document.getElementById("apellidom").value;
 						if (!er.test(apellidoM)){
 							alert("Apellido Materno No Válido!");
 							return;
 						}
-						setTimeout("location.href='pro_produccion_create_autor.php?numregistro="+_numregistro+"&titulo="+titulo+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"'", 0);
+						setTimeout("location.href='pro_tutoria_query.php?id_tutoria="+_id_tutoria+"&nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"&query=2"+"'", 0);
 					}
 					else {
-						setTimeout("location.href='pro_produccion_create_autor.php?numregistro="+_numregistro+"&titulo="+titulo+"&nombre="+nombre+"&apellidop="+apellidoP+"'", 0);
+						setTimeout("location.href='pro_tutoria_query.php?id_tutoria="+_id_tutoria+"&nombre="+nombre+"&apellidop="+apellidoP+"&query=2"+"'", 0);
 					}
 				}
 			}
-			function cancelar(){
-				setTimeout("location.href='pro_produccion.php'", 0);
+			function terminar(){
+				setTimeout("location.href='pro_tutoria.php'", 0);
 			}
 		</script>
 	</head>
@@ -73,27 +71,33 @@
     	$persona = mysqli_fetch_array($resultado);
 		return $persona['id'];
 	}
-	function autores($num){
+	function alumnos($id_tutoria){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
         //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
-		$sql = 'SELECT * FROM produccion_autores WHERE numRegistro = "'.$num.'"';
+		$sql = 'SELECT * FROM alumno WHERE id_tutoria = "'.$id_tutoria.'"';
 		$resultado = mysqli_query($conexion, $sql);
-		while ($autor = mysqli_fetch_array($resultado)) {
+		while ($alumno = mysqli_fetch_array($resultado)) {
 			echo '<tr class="tupla-tabla">';
-			if ($autor['apellidoM_autor']) {
-				echo '<td><input class="form-control" type="text" value="'.$autor['nombre_autor'].'_'.$autor['apellidoP_autor'].'_'.$autor['apellidoM_autor'].'" disabled> </td>';
+			if ($alumno['apellidoM']) {
+				echo '<td><input class="form-control" type="text" value="'.$alumno['nombre'].'_'.$alumno['apellidoP'].'_'.$alumno['apellidoM'].'" disabled> </td>';
 			} else {
-				echo '<td><input class="form-control" type="text" value="'.$autor['nombre_autor'].'_'.$autor['apellidoP_autor'].'" disabled> </td>';
+				echo '<td><input class="form-control" type="text" value="'.$alumno['nombre'].'_'.$alumno['apellidoP'].'" disabled> </td>';
 			}
 			echo '</tr>';
 		}
 	}
 
 	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
-		if(!$_GET['titulo'] || !$_GET['numregistro']){
+		if(!$_GET['id_tutoria']){
 			header('Location: ../profesor.php');
 		}
-	?>
+
+	$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+      //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+	$sql = 'SELECT * FROM tutoria WHERE id = '.$_GET['id_tutoria'];
+	$resultado = mysqli_query($conexion, $sql);
+	$tutoria = mysqli_fetch_array($resultado);
+?>
 
 <body>
 	<div class="container">
@@ -109,7 +113,7 @@
 					</a>
   			</div>
   			<div class="col-4 text-center">
-    			<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a> <!-- Linea modificada -->
+    			<a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
    			</div>
     			<div class="col-4 d-flex justify-content-end align-items-center">
       			<a class="btn btn-sm btn-outline-secondary p-font" href="../logout.php">Cerrar Sesión</a>
@@ -121,15 +125,15 @@
   		<nav class="nav d-flex justify-content-between">
 				<a class="p-2 text-white p-font" href="../datos_personales/pro_datos_personales.php">Datos Personales</a>
 				<a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
-				<a class="p-2 text-white p-font" href="pro_produccion.php">Producción Académica</a>
+				<a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
 				<a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
-				<a class="p-2 text-white p-font" href="#">Tutorías</a>
+				<a class="p-2 text-white p-font" href="pro_tutoria.php">Tutorías</a>
 				<a class="p-2 text-white p-font" href="#">Configuración</a>
   		</nav>
 		</div>
 
 		<div class="py-5 text-center">
-  		<h2 class="h-font">Agregar Autor de Producción</h2>
+  		<h2 class="h-font">Agregar Alumno de Tutoria</h2>
 		</div>
 
 		<div class="row">
@@ -142,24 +146,24 @@
     			<li class="list-group-item d-flex justify-content-between lh-condensed">
     				<div>
       				<h6 class="my-0 h-font">¿Que pasará cuando haga clic sobre "Guardar" y "Terminar"?</h6>
-      				<small class="text-muted p-font">El autor será guardado en la base de datos inmediatamente. Usted puede volver a las producciones al hacer clic en "Terminar".</small>
+      				<small class="text-muted p-font">El alumno será guardado en la base de datos inmediatamente. Usted puede volver a las tutorías al hacer clic en "Terminar".</small>
     				</div>
     			</li>
   			</ul>
 			</div>
 
   		<div class="col-md-8 order-md-1">
-  			<h4 class="mb-3 h-font"><?php echo $_GET['titulo']; ?></h4>
+  			<h4 class="mb-3 h-font">Tutoría [<?php echo $tutoria['fecha_inicio']." -> ".$tutoria['fecha_fin']; ?>]</h4>
 				<div class="col-md-6 mb-3">
-					<label for="username" class="p-font">Autores registrados</label>
-					<table id="tabla-autores">
-						<?php autores($_GET['numregistro']); ?>
+					<label for="username" class="p-font">Alumnos registrados</label>
+					<table id="tabla-alumnos">
+						<?php alumnos($_GET['id_tutoria']); ?>
 					</table>
 				</div>
 				<form method="post" class="needs-validation">
     			<div class="row">
     				<div class="col-md-6 mb-3">
-      				<label for="username" class="p-font">Nombre de autor</label>
+      				<label for="username" class="p-font">Nombre de alumno</label>
 							<?php echo '<input type="text" maxlength=29 class="form-control" id="nombre" required>' ?>
       				<div class="invalid-feedback">
       					Campo requerido.
@@ -182,8 +186,8 @@
     				<div id="fecha" class="fecha">
 							<div id="botones">
 								<table>
-									<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$_GET['numregistro'].'"'; ?> onclick="guardarAutor(value)">Guardar</button></th>
-									<th><button class="btn btn-lg btn-secondary btn-block" onclick="cancelar()">Terminar</button></th>
+									<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$_GET['id_tutoria'].'"'; ?> onclick="guardarAlumno(value)">Guardar</button></th>
+									<th><button class="btn btn-lg btn-secondary btn-block" onclick="terminar()">Terminar</button></th>
 								</table>
 							</div>
     				</div>
@@ -192,7 +196,6 @@
 			</div>
   	</div>
 	</div>
-	<input id="titulo" type="hidden" value=<?php echo '"'.$_GET['titulo'].'"' ?>>
 	<footer class="blog-footer text-white">
   	<p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
   	<p><a href="../profesor.php" class="link-color">Regresar</a></p>

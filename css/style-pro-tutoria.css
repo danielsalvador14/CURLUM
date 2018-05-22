@@ -13,7 +13,7 @@
   padding-top: 2px;
 }
 
-.lista-grado {
+.lista-tutoria {
   text-align: left;
 }
 
@@ -26,38 +26,23 @@
   left: 0px;
 }
 
-#producciones-registros {
+#tutorias-registros {
   position: relative;
   left: 0px;
 }
 
-#nregistro {
+#alumnos {
   position: relative;
-  top: -10%;
+  top: 0%;
 }
 
-#institucion {
-  position: relative;
-  top: -20%;
-}
-
-#fecha {
-  position: relative;
-  top: -30%;
-}
-
-#autores {
+#lista-alumnos {
   position: relative;
   top: -40%;
 }
 
-#lista-autores {
-  position: relative;
-  top: -80%;
-}
-
 .boton-editar {
   position: relative;
-  top: -30%;
-  left: 85%;
+  top: 29%;
+  left: 73%;
 }
