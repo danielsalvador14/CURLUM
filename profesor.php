@@ -55,7 +55,7 @@
 	          <a class="p-2 text-white p-font" href="produccion_academica/pro_produccion.php">Producción Académica</a>
 	          <a class="p-2 text-white p-font" href="carga_academica/carga_academica.php">Carga Acádemica</a>
 	          <a class="p-2 text-white p-font" href="#">Tutorías</a>
-	          <a class="p-2 text-white p-font" href="#">Configuración</a>
+	          <a class="p-2 text-white p-font" href="configuracion/configuracion.php">Configuración</a>
         	</nav>
       	</div>
       	<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
