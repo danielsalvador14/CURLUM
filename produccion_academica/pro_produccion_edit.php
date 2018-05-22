@@ -165,7 +165,7 @@
 							<a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
 							<a class="p-2 text-white p-font" href="pro_produccion.php">Producción Académica</a>
 							<a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
-							<a class="p-2 text-white p-font" href="#">Tutorías</a>
+							<a class="p-2 text-white p-font" href="../tutoria/pro_tutoria.php">Tutorías</a>
 							<a class="p-2 text-white p-font" href="#">Configuración</a>
         		</nav>
       		</div>
@@ -187,7 +187,7 @@
                 				<small class="text-muted p-font">Los cambios serán guardardos en la base de daros inmediantamente. Sea precavido con los cambios hechos.</small>
                 				<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Eliminar"?</h6>
                 				<small class="text-muted p-font">El registro será inmediantamente eliminado de la base de datos. Por lo cual, se recomienda precaución al solicitar esta acción.</small>
-												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Cancelar"?</h6>
+												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Terminar"?</h6>
                 				<small class="text-muted p-font">Será dirigido a la página 'Producción Académica'.</small>
 												<h6 class="my-0 h-font">¿Que pasará cuando se presione sobre "Modificar"?</h6>
                 				<small class="text-muted p-font">Será dirigido a la página correspondiente para editar el registro.</small>
@@ -248,7 +248,7 @@
 								<table>
 									<th><button class="btn btn-lg btn-secondary btn-block" name="guardar_cambios" value=<?php echo '"'.$id_produccion.'"'; ?> onclick="solicitarModificacion(value)">Guardar</button></th>
 									<th><button class="btn btn-lg btn-secondary btn-block boton-eliminar" name="eliminar_produccion" value=<?php echo '"'.$id_produccion.'"'; ?>>Eliminar</button></th>
-									<th><button class="btn btn-lg btn-secondary btn-block" onclick="cancelar()">Cancelar</button></th>
+									<th><button class="btn btn-lg btn-secondary btn-block" onclick="cancelar()">Terminar</button></th>
 								</table>
 							</div>
 						</div>
