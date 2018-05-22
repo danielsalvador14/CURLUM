@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8">
-		<title>MODIFICAR DATOS PERSONALES | CURLUM</title>
+		<title>DEPENDIENTES ECONÓMICOS | CURLUM</title>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style-fuentes.css">
@@ -26,57 +26,27 @@
 		echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
 	}
 
+	function getIdProfesor($username){
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		$sql = "SELECT * FROM profesor WHERE username = '$username'";
+		$resultado = mysqli_query($conexion, $sql);
+		$persona = mysqli_fetch_array($resultado);
+		return $persona['id'];
+	}
+
 	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
 		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
 	    //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
-		$username = $_SESSION['username'];
-		$sql = "SELECT * FROM profesor WHERE username='$username'";
-		$resultado = mysqli_query($conexion, $sql);
-		$reg = mysqli_fetch_array($resultado);
-
-		$idProfesor = $reg['id'];
-		$nombre = $reg['nombre'];
-		$apeP = $reg['apellidoP'];
-		$apeM = $reg['apellidoM'];
-		$email = $reg['email'];
-		$calle = $reg['calle'];
-		$numero = $reg['numero'];
-		$colonia = $reg['colonia'];
-		$ciudad = $reg['ciudad'];
-		$telefono = $reg['telefono'];
-		$Profe_usuario = $reg['username'];
 
 		if(isset($_POST['guardar'])){
-			$reg = mysqli_fetch_array($resultado);
 
-			if($_POST['nombre']==""){  $nombre = $profesor['nombre'];	}
-			else{	$nombre = $_POST['nombre'];  	}
+			$idProf = getIdProfesor($_SESSION['username']);
+			$nombre = $_POST['nombre'];
+			$apeP = $_POST['apellidoP'];
+			$apeM = $_POST['apellidoM'];
 
-			if($_POST['apellidoP']==""){	$apeP = $profesor['apellidoP']; 	}
-			else{  $apeP = $_POST['apellidoP'];   }
-
-			if($_POST['apellidoM']==""){ $apeM = $profesor['apellidoM'];	}
-			else{	$apeM = $_POST['apellidoM'];	}
-
-			if($_POST['email']==""){	$email = $profesor['email'];	}
-			else{		$email = $_POST['email'];	}
-
-			if($_POST['calle']==""){	$calle = $profesor['calle'];	}
-			else{		$calle = $_POST['calle'];	}
-
-			if($_POST['numero']==""){	$numero = $profesor['numero'];	}
-			else{		$numero = $_POST['numero'];	}
-
-			if($_POST['colonia']==""){	$colonia = $profesor['colonia'];	}
-			else{		$colonia = $_POST['colonia'];	}
-
-			if($_POST['ciudad']==""){	$ciudad = $profesor['ciudad'];	}
-			else{		$ciudad = $_POST['ciudad'];	}
-
-			if($_POST['telefono']==""){ 	$telefono = $profesor['telefono'];	}
-			else{	$telefono = $_POST['telefono'];	}
-
-			$sql = "UPDATE profesor SET nombre='$nombre', apellidoP='$apeP', apellidoM='$apeM', email='$email', calle='$calle', numero='$numero', colonia='$colonia', ciudad='$ciudad', telefono='$telefono' WHERE id='$idProfesor'";
+			$sql = "INSERT INTO profesor_dependiente (id_profesor, nombre_dep, apellidoP_dep, apellidoM_dep) VALUES($idProf, '$nombre', '$apeP', '$apeM' )";
 			$resultado = mysqli_query($conexion, $sql);
 
 			header('Location: pro_datos_personales.php');
@@ -109,14 +79,14 @@
 		          <a class="p-2 text-white p-font" href="pro_datos_personales.php">Datos Personales</a>
 		          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
 		          <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
-		          <a class="p-2 text-white p-font" href="../carga_academica/carga_academica.php">Carga Acádemica</a>
+		          <a class="p-2 text-white p-font" href="../carga_academica_carga_academica.php">Carga Acádemica</a>
 		          <a class="p-2 text-white p-font" href="#">Tutorías</a>
 		          <a class="p-2 text-white p-font" href="#">Configuración</a>
 		        </nav>
 		      </div>
 
 		    <div class="py-5 text-center">
-		        <h2 class="h-font">Modifique los valores que desea Corregir</h2>
+		        <h2 class="h-font">Ingrese los valores del nuevo Dependiente Económico</h2>
 		    </div>
 
 			<div class="row">
@@ -129,13 +99,13 @@
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
 		              <div>
 		                <h6 class="my-0 h-font">Botón "Guardar"</h6>
-		                <small class="text-muted p-font">Actualiza los Datos con la nueva Información Ingresada.</small>
+		                <small class="text-muted p-font">Guarda el Registro con la Información Ingresada.</small>
 		              </div>
 		            </li>
 		            <li class="list-group-item d-flex justify-content-between lh-condensed">
 		              <div>
 		                <h6 class="my-0 h-font">Botón "Cancelar"</h6>
-		                <small class="text-muted p-font">Regresa a la Página anterior sin realizar ningún cambio.</small>
+		                <small class="text-muted p-font">Regresa a la Página anterior.</small>
 		              </div>
 		            </li>
 		          </ul>
@@ -143,21 +113,21 @@
 		        </div>
 
 		        <div class="col-md-8 order-md-1">
-		          <h4 class="mb-3 h-font">Datos Actuales</h4>
+		          <h4 class="mb-3 h-font">Dependiente Económico</h4>
 		          <form method="post">
 			            <div class="row">
 
 			              <div class="col-md-6 mb-3 p-font">
 			                <label for="nombre">Nombre</label>
-			                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" <?php echo "value='$nombre'" ?>  required>
+			                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
 			                <div class="invalid-feedback">
-			                  Se Requiere un Nombre de Usuario Valido.
+			                  Se Requiere un Nombre Valido.
 			                </div>
 			              </div>
 
 			              <div class="col-md-6 mb-3 p-font">
 			                <label for="apeP">Apellido Paterno</label>
-			                <input type="text" class="form-control" name="apellidoP" id="apellidoP" placeholder="" <?php echo "value='$apeP'" ?>  required>
+			                <input type="text" class="form-control" name="apellidoP" id="apellidoP" placeholder="Apellido Paterno" required>
 			                <div class="invalid-feedback">
 			                  Se Requiere un Apellido Valido.
 			                </div>
@@ -165,55 +135,7 @@
 
 			              <div class="col-md-6 mb-3 p-font">
 			                <label for="apeM">Apellido Materno</label>
-			                <input type="text" class="form-control" name="apellidoM" id="apellidoM" placeholder="" <?php echo "value='$apeM'" ?> >
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="email">Correo Electrónico</label>
-			                <input type="email" class="form-control" name="email" id="email" placeholder="" <?php echo "value='$email'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere de un Correo Electrónico Valido.
-			                </div>
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="calle">Calle</label>
-			                <input type="text" class="form-control" name="calle" id="calle" placeholder="" <?php echo "value='$calle'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere una Calle Válida.
-			                </div>
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="numero">Número</label>
-			                <input type="number" class="form-control" name="numero" id="numero" placeholder="" <?php echo "value='$numero'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere un Número Valido.
-			                </div>
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="colonia">Colonia</label>
-			                <input type="text" class="form-control" name="colonia" id="colonia" placeholder="" <?php echo "value='$colonia'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere una Colonia Válida.
-			                </div>
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="ciudad">Ciudad</label>
-			                <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="" <?php echo "value='$ciudad'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere una Ciudad Válida.
-			                </div>
-			              </div>
-
-			              <div class="col-md-6 mb-3 p-font">
-			                <label for="telefono">Teléfono</label>
-			                <input type="number" class="form-control" name="telefono" id="telefono" placeholder="" <?php echo "value='$telefono'" ?>  required>
-			                <div class="invalid-feedback">
-			                  Se Requiere un Teléfono Valido.
-			                </div>
+			                <input type="text" class="form-control" name="apellidoM" id="apellidoM" placeholder="Apellido Materno"  >
 			              </div>
 			            </div>
 

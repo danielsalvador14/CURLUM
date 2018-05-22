@@ -36,23 +36,23 @@
 	?>
 		<body>
 			<div class="container">
-		      <header class="blog-header py-3">
-		        <div class="row flex-nowrap justify-content-between align-items-center">
-		          <div class="col-4 pt-1">
-		          	<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
-		          </div>
-		          <div class="col-4 text-center">
-		            <a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
-		          </div>
-		          <div class="col-4 d-flex justify-content-end align-items-center">
+		      	<header class="blog-header py-3">
+		        	<div class="row flex-nowrap justify-content-between align-items-center">
+		        	  	<div class="col-4 pt-1">
+		          			<a><?php echo nombre($_SESSION['username']). " | " .$_SESSION['username']; ?> </a>
+		        	  	</div>
+		          		<div class="col-4 text-center">
+		           			 <a class="blog-header-logo text-dark h-font" href="../profesor.php">CURLUM</a>
+		          		</div>
+		          		<div class="col-4 d-flex justify-content-end align-items-center">
 
-		            <a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
-		          </div>
-		        </div>
-		    </header>
+		            		<a class="btn btn-sm btn-outline-secondary" href="../logout.php">Cerrar Sesión</a>
+		          		</div>
+		        	</div>
+		    	</header>
 		      <div class="nav-scroller py-1 mb-2 bg-dark">
 		        <nav class="nav d-flex justify-content-between">
-		          <a class="p-2 text-white p-font">Datos Personales</a>
+		          <a class="p-2 text-white p-font" href="pro_datos_personales.php">  Datos Personales</a>
 		          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
 		          <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
 		          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
@@ -148,6 +148,51 @@
 									}
 								?>
 					      	</div>
+					      	<?php
+					      	if(isset($_POST['quita'])){
+					      		//$NombreDep =  $_POST['nombre_dep'];
+					      		//$ApePDep =  $_POST['apellidoP_dep'];
+					      		//$ApeMDep =  $_POST['apellidoM_dep'];
+					      		//$sql = "DELETE FROM profesor_dependiente WHERE id_profesor = '$idProfesor' AND nombre_dep = '$NombreDep' AND apellidoP_dep = '$ApePDep' AND apellidoM_dep = '$ApeMDep'";
+								//$resultado = mysqli_query($conexion, $sql);
+					      	}
+					      	?>
+					      	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+					      		<p>Dependientes Económicos</p>
+								<table class="table table-bordered table-hover p-font">
+									<tr><th>Nombres</th><th>Apellido Paterno</th><th>Apellido Materno</th></tr>
+									<?php
+										$sql = "SELECT * FROM profesor_dependiente WHERE id_profesor ='$idProfesor'";
+										$resultado = mysqli_query($conexion, $sql);
+										while($reg = mysqli_fetch_array($resultado)){
+										echo "<tr><td>".$reg['nombre_dep']."</td>
+											  <td>".$reg['apellidoP_dep']."</td>
+											  <td>".$reg['apellidoM_dep']."</td></tr>";
+											  /*<td> " ?> 
+											  <form method="post">
+												<input class="btn btn-success" type="submit" name="quita" value="Remover">
+											</form>
+											  <?php 
+											  " </td></tr>";*/
+										}//Llave del while
+									?>
+								</table>
+								<?php
+									if(!isset($_POST['dependientes'])){
+								?>
+										<form method="post">
+											<input class="btn btn-success" type="submit" name="dependientes" value="Añadir Dependientes">
+										</form>
+								<?php
+									}
+									else{
+										header('Location: dependientes.php');
+									}
+								?>
+					      	</div>
+
+
+
 					  	</div>
 					</div>
 		  	</section>
