@@ -298,14 +298,13 @@ header("Content-Disposition: attachment; filename=Curriculum.doc");
 					<div class="row ">
 		      	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 							<?php
-							$foto = $reg['id'];
-							if(!file_exists("../foto_perfil/".$foto.".jpg")){
+							if(!file_exists("../datos_personales/foto_perfil/".$idProfesor.".jpg")){
 							?>
-								<img src="../foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
+								<img src="../datos_personales/foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
 							<?php
 							}//Llave de if
 							else{
-								echo "<img src='../foto_perfil/".$foto.".jpg' width='250' height='250'/>";
+								echo "<img src='../datos_personales/foto_perfil/".$idProfesor.".jpg' width='250' height='250'/>";
 							}//Llave del else
 							?>
 						</div>

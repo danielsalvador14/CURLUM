@@ -10,11 +10,14 @@
 		<link rel="stylesheet" href="../css/font-family.css">
 		<link rel="icon" href="../imagenes/CURLUM.ico">
 		<script src="../js/jspdf.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/FileSaver.js"></script>
+		<script src="../jquery.wordexport.js"></script>
+
 	</head>
 
 	<script>
 	    function pruebaDivAPdf() {
-	    	alert("Entro");
 	        var pdf = new jsPDF('p', 'pt', 'letter');
 	        source = $('#imprimir')[0];
 
@@ -42,6 +45,15 @@
 	                pdf.save('Prueba.pdf');
 	            }, margins
 	        );
+	    }
+
+	    function pruebaDivAWord() {
+	    	alert("Entra");
+	    	jQuery(document).ready(function($) {
+				$("a.word-export").click(function(event) {
+					$("#imprimir").wordExport();
+				});
+			});
 	    }
 	</script>
 	<?php
@@ -291,11 +303,11 @@
     	</header>
       <div class="nav-scroller py-1 mb-2 bg-dark">
         <nav class="nav d-flex justify-content-between">
-          <a class="p-2 text-white p-font" href="pro_datos_personales.php">  Datos Personales</a>
+          <a class="p-2 text-white p-font" href="../datos_personales/pro_datos_personales.php">  Datos Personales</a>
           <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
           <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
           <a class="p-2 text-white p-font" href="../carga_academica/carga_academica.php">Carga Acádemica</a>
-          <a class="p-2 text-white p-font" href="#">Tutorías</a>
+          <a class="p-2 text-white p-font" href="../tutoria/pro_tutoria.php">Tutorías</a>
           <a class="p-2 text-white p-font" href="configuracion.php">Configuración</a>
         </nav>
       </div>
@@ -303,6 +315,8 @@
       	<a href="javascript:pruebaDivAPdf()" class="button">Pasar a PDF</a>
       	<br>
 				<a href="toword.php">Pasar a Word</a>
+				<!--a class="word-export" href="javascript:void(0)"> Pasar a .doc </a>
+				<a href="javascript:pruebaDivAWord()" class="word-export">Pasar a Word</a-->
       </div>
 
       <div class="jumbotron text-white rounded bg-dark" id="imprimir">
@@ -312,14 +326,13 @@
 					<div class="row ">
 		      	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 							<?php
-							$foto = $reg['id'];
-							if(!file_exists("../foto_perfil/".$foto.".jpg")){
+							if(!file_exists("../datos_personales/foto_perfil/".$idProfesor.".jpg")){
 							?>
-								<img src="../foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
+								<img src="../datos_personales/foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
 							<?php
 							}//Llave de if
 							else{
-								echo "<img src='../foto_perfil/".$foto.".jpg' width='250' height='250'/>";
+								echo "<img src='../datos_personales/foto_perfil/".$idProfesor.".jpg' width='250' height='250'/>";
 							}//Llave del else
 							?>
 						</div>

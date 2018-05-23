@@ -14,8 +14,9 @@ if (isset($_POST) && isset($_GET['cedula_profesional']) && isset($_GET['id'])
   .$_GET['institucion'].'","'
   .$_GET['fecha_inicio'].'","'
   .$_GET['fecha_fin'].'","'
-  .$_GET['fecha_obtencion'].'")';
+  .$_GET['fecha_obtencion'].'");';
   mysqli_query($conexion, $sql);
+  echo $sql;
   header('Location: pro_formacion.php');
 }
 else {

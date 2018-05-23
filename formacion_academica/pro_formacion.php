@@ -134,7 +134,7 @@
           <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
           <a class="p-2 text-white p-font" href="../carga_academica/carga_academica.php">Carga Acádemica</a>
           <a class="p-2 text-white p-font" href="../tutoria/pro_tutoria.php">Tutorías</a>
-          <a class="p-2 text-white p-font" href="#">Configuración</a>
+          <a class="p-2 text-white p-font" href="../configuracion/configuracion.php">Configuración</a>
         </nav>
       </div>
 

@@ -22,17 +22,19 @@
 		$persona = mysqli_fetch_array($resultado);
 		echo $persona['nombre']." ".$persona['apellidoP']." ".$persona['apellidoM'];
 	}
-
-	$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
-    //$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
-	$username = $_SESSION['username'];
-	$sql = "SELECT * FROM profesor WHERE username='$username'";
-	$resultado = mysqli_query($conexion, $sql);
-	$reg = mysqli_fetch_array($resultado);
-
-	$idProfesor = $reg['id'];
+	function getIdProfesor($username){
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		$sql = "SELECT * FROM profesor WHERE username = '$username'";
+		$resultado = mysqli_query($conexion, $sql);
+		$persona = mysqli_fetch_array($resultado);
+		return $persona['id'];
+	}
 
 	if(isset($_SESSION['username']) && isset($_SESSION['profesor'])){
+		$conexion = mysqli_connect("localhost", "root", "", "b14_22049034_curriculum");
+		//$conexion = mysqli_connect("sql306.byethost.com", "b14_22049034", "kvr1vm", "b14_22049034_curriculum");
+		$idProfesor = getIdProfesor($_SESSION['username']);
 	?>
 		<body>
 			<div class="container">
@@ -55,9 +57,9 @@
 		          <a class="p-2 text-white p-font" href="pro_datos_personales.php">  Datos Personales</a>
 		          <a class="p-2 text-white p-font" href="../formacion_academica/pro_formacion.php">Formación Académica</a>
 		          <a class="p-2 text-white p-font" href="../produccion_academica/pro_produccion.php">Producción Académica</a>
-		          <a class="p-2 text-white p-font" href="#">Carga Acádemica</a>
+		          <a class="p-2 text-white p-font" href="../carga_academica/carga_academica.php">Carga Acádemica</a>
 		          <a class="p-2 text-white p-font" href="../tutoria/pro_tutoria.php">Tutorías</a>
-		          <a class="p-2 text-white p-font" href="#">Configuración</a>
+		          <a class="p-2 text-white p-font" href="../configuracion/configuracion.php">Configuración</a>
 		        </nav>
 		      </div>
 
@@ -68,26 +70,33 @@
 
 					      	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 								<?php
-									$foto = $reg['id'];
-									if(!file_exists("../foto_perfil/".$foto.".jpg")){
+									if(!file_exists("foto_perfil/".$idProfesor.".jpg")){
 									?>
-										<img src="../foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
+										<img src="foto_perfil/default.png" class="img-responsive img-circle" width="250" height="250"/>
 									<?php
 									}//Llave de if
 									else{
-										echo "<img src='../foto_perfil/".$foto.".jpg' width='250' height='250'/>";
+										echo "<img src='foto_perfil/".$idProfesor.".jpg' width='250' height='250'/>";
 									}//Llave del else
 
 									if(isset($_POST['upload'])){
-										$carpeta = "../foto_perfil/";
-										opendir($carpeta);
-										$destino = $carpeta.$_FILES['foto']['name'];
-										copy($_FILES['foto']['tmp_name'], $destino);
-										rename($carpeta.$_FILES['foto']['name'], $carpeta.$foto.".jpg");
+
+										$uploaddir = 'foto_perfil/';
+										$uploadfile1 = $uploaddir . basename($_FILES['foto_a_subir']['name']);
+										$archivo_origen = $_FILES['foto_a_subir']['tmp_name']; 
+										$archivo_final = "./foto_perfil/".$idProfesor.".jpg"; 
+
+										$msg1 = "Subiendo Imagen";
+										if (move_uploaded_file($archivo_origen, $archivo_final)) {
+											$msg1 = "La foto se guardo satisfactoriamente.";
+										} else {
+											$msg1 = "Posible error al guardar la foto!";
+										}
+
 										header('Location: pro_datos_personales.php');
 									}
-									else if(isset($_POST['borrarimg']) && file_exists("../foto_perfil/".$foto.".jpg")){
-										unlink('../foto_perfil/'.$foto.".jpg");
+									else if(isset($_POST['borrarimg']) && file_exists("foto_perfil/".$idProfesor.".jpg")){
+										unlink('foto_perfil/'.$idProfesor.".jpg");
 										header('Location: pro_datos_personales.php');
 									}
 
@@ -95,7 +104,7 @@
 									?>
 										<form method="post" enctype="multipart/form-data">
 											<br>
-											<input class="form-control-file" type="file" name="foto" required><br>
+											<input class="form-control-file" type="file" name="foto_a_subir" required><br>
 											<input class="btn btn-success" type="submit" name="upload" value="Subir">
 										</form><br>
 										<form method="post">
@@ -150,30 +159,32 @@
 					      	</div>
 					      	<?php
 					      	if(isset($_POST['quita'])){
-					      		//$NombreDep =  $_POST['nombre_dep'];
-					      		//$ApePDep =  $_POST['apellidoP_dep'];
-					      		//$ApeMDep =  $_POST['apellidoM_dep'];
-					      		//$sql = "DELETE FROM profesor_dependiente WHERE id_profesor = '$idProfesor' AND nombre_dep = '$NombreDep' AND apellidoP_dep = '$ApePDep' AND apellidoM_dep = '$ApeMDep'";
-								//$resultado = mysqli_query($conexion, $sql);
+					      		$idDep =  $_POST['idUnico'];
+					      		$sql = "DELETE FROM profesor_dependiente WHERE id = '$idDep' ";
+								$resultado = mysqli_query($conexion, $sql);
 					      	}
 					      	?>
 					      	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
 					      		<p>Dependientes Económicos</p>
 								<table class="table table-bordered table-hover p-font">
-									<tr><th>Nombres</th><th>Apellido Paterno</th><th>Apellido Materno</th></tr>
+									<tr><th>Nombres</th><th>Apellido Paterno</th><th>Apellido Materno</th><th>Acción</th></tr>
 									<?php
 										$sql = "SELECT * FROM profesor_dependiente WHERE id_profesor ='$idProfesor'";
 										$resultado = mysqli_query($conexion, $sql);
 										while($reg = mysqli_fetch_array($resultado)){
-										echo "<tr><td>".$reg['nombre_dep']."</td>
-											  <td>".$reg['apellidoP_dep']."</td>
-											  <td>".$reg['apellidoM_dep']."</td></tr>";
-											  /*<td> " ?> 
-											  <form method="post">
-												<input class="btn btn-success" type="submit" name="quita" value="Remover">
-											</form>
-											  <?php 
-											  " </td></tr>";*/
+											$idunico = $reg['id'];
+											echo "<tr><td>".$reg['nombre_dep']."</td>
+												  <td>".$reg['apellidoP_dep']."</td>
+												  <td>".$reg['apellidoM_dep']."</td>
+												  <td>"
+												  ?> 
+												  	<form method="post">
+					                			 		<input type="text" id="idUnico" name="idUnico"  <?php echo "value='$idunico'" ?> style="display: none;">
+												  	
+														<input class="btn btn-success" type="submit" name="quita" value="Remover">
+												  	</form>
+										  		  <?php 
+											  	 " </td></tr>";
 										}//Llave del while
 									?>
 								</table>
@@ -197,16 +208,15 @@
 					</div>
 		  	</section>
 		    </div>
-
+		    <script src="../js/jquery.js"></script>
+	    	<script src="../js/bootstrap.min.js"></script>
+			
 		    <footer class="blog-footer text-white pos-food">
 		      <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
 		      <p>
 		        <a href="../profesor.php" class="link-color">Volver al Inicio</a>
 		      </p>
 		    </footer>
-
-			<script src="js/jquery.js"></script>
-	    	<script src="js/bootstrap.min.js"></script>
 		</body>
 	<?php
 	}
