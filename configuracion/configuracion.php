@@ -12,7 +12,7 @@
 		<script src="../js/jspdf.min.js"></script>
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/FileSaver.js"></script>
-		<script src="../jquery.wordexport.js"></script>
+		
 
 	</head>
 
@@ -42,12 +42,15 @@
 	            },
 
 	            function (dispose) {
-	                pdf.save('Prueba.pdf');
+	                pdf.save('Curriculum_CURLUM.pdf');
 	            }, margins
 	        );
 	    }
 
 	    function pruebaDivAWord() {
+	    	$('.word-export').click(function($){
+	    		$('.imprimir').wordExport();
+	    	});
 	    	alert("Entra");
 	    	jQuery(document).ready(function($) {
 				$("a.word-export").click(function(event) {
@@ -176,10 +179,6 @@
 			}
 			echo "</li>";
 			$cont += 1;
-			if ($cont == 3) {
-				echo "<li>...</li>";
-				break;
-			}
 		}
 		echo "</ul>";
 	}
@@ -196,7 +195,7 @@
 				}
 				echo '
 				<div class="col-md-6">
-					<div class="card flex-md-row mb-4 box-shadow h-md-250">
+					<div class="card flex-md-row mb-4 box-shadow h-md-500">
 						<div class="card-body d-flex flex-column align-items-start" style="color:black">
 							<h3 class="mb-0 h-font">
 								<a class="text-dark">'.$produccion['titulo'].'</a>
@@ -242,11 +241,11 @@
 			$cont = 0;
 			while($tutoria = mysqli_fetch_array($resultado)){
 				if ($cont == 0) {
-					echo '<div class="row mb-2">';
+					echo '<div class="row mb-12">';
 				}
 				echo '
-				<div class="col-md-6">
-					<div class="card flex-md-row mb-4 box-shadow h-md-250">
+				<div class="col-md-12">
+					<div class="card flex-md-row mb-11 box-shadow h-md-250">
 						<div class="card-body d-flex flex-column align-items-start" style="color:black">
 							<h3 class="mb-0 h-font">
 								<a class="text-dark">'.$tutoria['fecha_inicio'].'</a> -> <a class="text-dark">'.$tutoria['fecha_fin'].'</a>
@@ -312,15 +311,15 @@
         </nav>
       </div>
       <div>
-      	<a href="javascript:pruebaDivAPdf()" class="button">Pasar a PDF</a>
-      	<br>
-				<a href="toword.php">Pasar a Word</a>
-				<!--a class="word-export" href="javascript:void(0)"> Pasar a .doc </a>
-				<a href="javascript:pruebaDivAWord()" class="word-export">Pasar a Word</a-->
+      	<a href="javascript:pruebaDivAPdf()" class="btn btn-success">Pasar a PDF</a>
+		<a href="toword.php" class="btn btn-success" >Pasar a Word</a><br>
+		<!--a class="word-export" href="javascript:void(0)"> Pasar a .doc </a>
+		<a href="javascript:pruebaDivAWord()" class="btn btn-success">Pasar a Word 2.0</a-->
       </div>
 
       <div class="jumbotron text-white rounded bg-dark" id="imprimir">
       	<br><br><br><br>
+      		<h1 class="display-4 font-italic h-font">CURLUM</h1>
 				<div class="container-fluid ">
 					<h1 class="display-4 font-italic h-font">Datos Personales</h1>
 					<div class="row ">
@@ -444,9 +443,10 @@
       <p>CURLUM<a> Sistema de Curriculums en Línea </a>, by <a> CUCEI's Students </a>.</p>
     </footer>
 
-		<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.js"></script>
   	<script src="../js/bootstrap.min.js"></script>
   	<script src="../js/jspdf.min"></script>
+  	<script src="../js/jquery.wordexport.js"></script>
 	</body>
 <?php
 	}

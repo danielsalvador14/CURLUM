@@ -38,6 +38,8 @@
 					  	<a class="p-2 text-white p-font" href="administrador/user_profesor.php">Profesores Registrados</a>
 					  	<a class="p-2 text-white p-font" href="administrador/user_profesor_add.php">Registrar Nuevo Usuario</a>
 					  	<a class="p-2 text-white p-font" href="administrador/administrar_usuarios.php">Modificar Usuario</a>
+					  	<a class="p-2 text-white p-font" href="administrador/admin_asignaturas.php">Asignaturas</a>
+					  	<a class="p-2 text-white p-font" href="administrador/admin_programaE.php">Programas Educativos</a>
 					</nav>
 				</div>
 

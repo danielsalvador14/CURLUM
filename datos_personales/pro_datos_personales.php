@@ -188,18 +188,7 @@
 										}//Llave del while
 									?>
 								</table>
-								<?php
-									if(!isset($_POST['dependientes'])){
-								?>
-										<form method="post">
-											<input class="btn btn-success" type="submit" name="dependientes" value="Añadir Dependientes">
-										</form>
-								<?php
-									}
-									else{
-										header('Location: dependientes.php');
-									}
-								?>
+								<a class="btn btn-success" href="dependientes.php" >Añadir Dependientes</a>
 					      	</div>
 
 

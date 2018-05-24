@@ -132,6 +132,8 @@
 		          <a class="p-2 text-white p-font" href="user_profesor.php">Profesores Registrados</a>
 		          <a class="p-2 text-white p-font" href="user_profesor_add.php">Registrar Nuevo Usuario</a>
 		          <a class="p-2 text-white p-font" href="administrar_usuarios.php">Modificar Usuario</a>
+		          <a class="p-2 text-white p-font" href="admin_asignaturas.php">Asignaturas</a>
+				  <a class="p-2 text-white p-font" href="admin_programaE.php">Programas Educativos</a>
 		        </nav>
 		      </div>
 
